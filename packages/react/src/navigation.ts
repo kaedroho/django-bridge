@@ -290,7 +290,7 @@ export function useNavigationController(
   useEffect(() => {
     // Load initial response
     // eslint-disable-next-line no-void
-    void handleResponse(initialResponse, initialPath, false); 
+    void handleResponse(initialResponse, initialPath, false);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
