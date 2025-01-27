@@ -5,6 +5,7 @@ description = ""
 authors = ["Karl Hobley <karl@kaed.uk>"]
 license = "BSD-3-Clause"
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
