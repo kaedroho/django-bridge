@@ -38,5 +38,7 @@ module.exports = {
     "react/require-default-props": "off",
     // By default, this rule also forbids quote characters which aren't very harmful
     "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],
+    // Allow imports from devDependencies. This allows @django-bridge/common to be imported
+    "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
   },
 };
