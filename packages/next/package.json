@@ -10,7 +10,7 @@
     "/dist"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format cjs --dts --minify --clean --out-dir dist",
+    "build": "tsup",
     "check-types": "tsc --noEmit"
   },
   "browserslist": {

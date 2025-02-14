@@ -3,3 +3,7 @@ node_modules
 
 # production
 dist
+
+# Don't lint tsup configuration
+# (this makes eslint want us to add tsup to non-dev dependencies)
+**/tsup.config.ts
