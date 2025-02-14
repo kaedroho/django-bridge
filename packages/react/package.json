@@ -26,15 +26,15 @@
     ]
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "telepath-unpack": "^0.0.4",
-    "@django-bridge/common": "*"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^12.0.0",
     "@types/react": "18",
     "tsup": "^8.0.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "telepath-unpack": "^0.0.4",
+    "@django-bridge/common": "*"
   },
   "peerDependencies": {
     "react": "^18.2.0"
