@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 
-import { Config, Frame } from "@django-bridge/common";
+import { Config, Frame } from "@common";
 
 export interface RenderFrameProps {
   config: Config;

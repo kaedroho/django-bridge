@@ -1,6 +1,0 @@
-{
-  "name": "@django-bridge/common",
-  "repository": "https://github.com/django-bridge/django-bridge",
-  "license": "BSD-3-Clause",
-  "main": "src/index.ts"
-}

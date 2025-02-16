@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Frame } from "@django-bridge/common";
+import { Frame } from "@common";
 
 import Config from "../config";
 

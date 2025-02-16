@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from "react";
-import { DjangoBridgeResponse, Frame, Message } from "@django-bridge/common";
+import { DjangoBridgeResponse, Frame, Message } from "@common";
 import Config from "../config";
 import {
   MessagesContext,

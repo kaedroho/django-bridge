@@ -2,7 +2,7 @@
 
 import { Context } from "react";
 
-import { Config as CommonConfig } from "@django-bridge/common";
+import { Config as CommonConfig } from "@common";
 
 export default class Config extends CommonConfig {
   public contextProviders: Map<string, Context<unknown>>;

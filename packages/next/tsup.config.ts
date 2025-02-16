@@ -7,5 +7,4 @@ export default defineConfig({
   dts: true,
   minify: true,
   clean: true,
-  noExternal: ["@django-bridge/common", "telepath-unpack"],
 });

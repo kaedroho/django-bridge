@@ -8,7 +8,7 @@ import {
   Message,
   Frame,
   Metadata,
-} from "@django-bridge/common";
+} from "@common";
 
 let nextFrameId = 1;
 

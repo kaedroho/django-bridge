@@ -6,7 +6,7 @@ import {
   djangoGet,
   Metadata,
   Frame,
-} from "@django-bridge/common";
+} from "@common";
 import { useNavigationController } from "./navigation";
 import { DirtyFormScope } from "./dirtyform";
 import Browser from "./components/Browser";
