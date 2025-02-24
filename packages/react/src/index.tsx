@@ -24,12 +24,27 @@ export interface AppProps {
 
 export function App({ config, initialResponse }: AppProps): ReactElement {
   // Toast messages state
-  const [messages, setMessages] = React.useState<Message[]>([]);
+  const [messages, dispatchMessages] = React.useReducer(
+    (
+      messages: Message[],
+      action: { action: "push"; message: Message } | { action: "clear" }
+    ) => {
+      switch (action.action) {
+        case "push":
+          return messages.concat([action.message]);
+        case "clear":
+          return [];
+        default:
+          return messages;
+      }
+    },
+    []
+  );
   const pushMessage = React.useCallback(
     (message: Message) => {
-      setMessages(messages.concat([message]));
+      dispatchMessages({ action: "push", message });
     },
-    [messages]
+    [dispatchMessages]
   );
 
   const onServerError = React.useCallback(
@@ -82,11 +97,11 @@ export function App({ config, initialResponse }: AppProps): ReactElement {
     // replacePath() and refreshProps() will update the existing one.
     // We don't want to delete messages for the latter two.
     if (newFrame) {
-      setMessages(newMessages);
-    } else {
-      // Push any new messages from server
-      newMessages.forEach(pushMessage);
+      dispatchMessages({ action: "clear" });
     }
+
+    // Push any new messages from server
+    newMessages.forEach(pushMessage);
   };
 
   const initialPath =
