@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "testproject"
+version = "0.0.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+packages = [{ include = "testproject" }]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4"
+django = "^5.1"
+django-bridge = "^0.4"
+psycopg = "^3.2.5"
+dj-database-url = "^2.3.0"
+gunicorn = "^23.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
