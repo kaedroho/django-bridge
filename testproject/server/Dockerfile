@@ -21,7 +21,7 @@ RUN apt update -y \
 
 ENV VIRTUAL_ENV=/venv
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
-    PYTHONPATH=/code/testproject/server/ \
+    PYTHONPATH=/code/testproject/server/,/code/python/ \
     PYTHONUNBUFFERED=1 \
     DJANGO_SETTINGS_MODULE=testproject.settings \
     PORT=8000
@@ -43,6 +43,8 @@ WORKDIR /code/testproject/server/
 RUN python -m venv $VIRTUAL_ENV
 
 # Install Python dependencies
+COPY --chown=testproject python /code/python
+COPY --chown=testproject README.md /code/README.md
 COPY --chown=testproject testproject/server/pyproject.toml testproject/server/poetry.lock ./
 RUN poetry install --no-root --only main
 

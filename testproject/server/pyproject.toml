@@ -8,7 +8,7 @@ packages = [{ include = "testproject" }]
 [tool.poetry.dependencies]
 python = ">=3.12,<4"
 django = "^5.1"
-django-bridge = "^0.4"
+django-bridge = {path = "/code/python", develop = true}
 psycopg = "^3.2.5"
 dj-database-url = "^2.3.0"
 gunicorn = "^23.0.0"
