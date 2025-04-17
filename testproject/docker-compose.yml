@@ -1,0 +1,49 @@
+services:
+  server:
+    build:
+      context: ..
+      dockerfile: testproject/server/Dockerfile
+      target: dev
+    init: true
+    command: django-admin runserver 0.0.0.0:8000
+    environment:
+      DJANGO_SECRET_KEY: secret
+      DJANGO_DEBUG: "true"
+      DJANGO_ALLOWED_HOSTS: "*"
+      DATABASE_URL: postgres://postgres@postgres/postgres
+    ports:
+      - 8000:8000
+    volumes:
+      - ..:/code/
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+      target: dev
+    init: true
+    command: npm run dev -- --host
+    volumes:
+      - ..:/code/
+    ports:
+      - 5173:5173
+
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    expose:
+      - 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
