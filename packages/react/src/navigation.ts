@@ -31,6 +31,8 @@ export interface NavigationController {
   replacePath: (frameId: number, path: string) => void;
   submitForm: (url: string, data: FormData) => Promise<void>;
   refreshProps: () => Promise<void>;
+  isNavigating: boolean;
+  setIsNavigating: (isNavigating: boolean) => void;
 }
 
 export function useNavigationController(
@@ -59,6 +61,7 @@ export function useNavigationController(
     props: {},
     context: {},
   });
+  const [isNavigating, setIsNavigating] = useState<boolean>(false);
 
   const pushFrame = useCallback(
     (
@@ -251,8 +254,12 @@ export function useNavigationController(
 
         path = urlObj.pathname + urlObj.search;
       }
-
-      return fetch(() => djangoGet(path, !!parent), path, pushState);
+      setIsNavigating(true);
+      return fetch(() => djangoGet(path, !!parent), path, pushState).finally(
+        () => {
+          setIsNavigating(false);
+        }
+      );
     },
     [fetch, parent]
   );
@@ -316,5 +323,7 @@ export function useNavigationController(
     replacePath,
     submitForm,
     refreshProps,
+    isNavigating,
+    setIsNavigating,
   };
 }

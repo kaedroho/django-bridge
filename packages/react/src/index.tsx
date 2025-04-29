@@ -145,6 +145,8 @@ export function App({ config, initialResponse }: AppProps): ReactElement {
     renderOverlay: (content: ReactNode) => ReactNode,
     { onClose }: { onClose?: () => void } = {}
   ) => {
+    navigationController.setIsNavigating(true);
+
     const initialOverlayResponse = await djangoGet(path, true);
 
     if (onClose) {
@@ -157,6 +159,8 @@ export function App({ config, initialResponse }: AppProps): ReactElement {
       initialResponse: initialOverlayResponse,
       initialPath: path,
     });
+
+    navigationController.setIsNavigating(false);
   };
 
   const messagesContext = React.useMemo(

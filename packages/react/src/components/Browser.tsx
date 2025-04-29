@@ -25,8 +25,14 @@ function Browser({
   navigationController,
   openOverlay,
 }: BrowserProps): ReactElement {
-  const { currentFrame, navigate, replacePath, submitForm, refreshProps } =
-    navigationController;
+  const {
+    currentFrame,
+    navigate,
+    replacePath,
+    submitForm,
+    refreshProps,
+    isNavigating,
+  } = navigationController;
 
   const { isDirty, requestUnload, cancelUnload } =
     React.useContext(DirtyFormContext);
@@ -53,6 +59,7 @@ function Browser({
       submitForm,
       openOverlay,
       refreshProps,
+      isNavigating,
     }),
     [
       currentFrame,
@@ -64,6 +71,7 @@ function Browser({
       cancelUnload,
       navigate,
       refreshProps,
+      isNavigating,
     ]
   );
 
