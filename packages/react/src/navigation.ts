@@ -254,7 +254,9 @@ export function useNavigationController(
 
         path = urlObj.pathname + urlObj.search;
       }
+
       setIsNavigating(true);
+
       return fetch(() => djangoGet(path, !!parent), path, pushState).finally(
         () => {
           setIsNavigating(false);

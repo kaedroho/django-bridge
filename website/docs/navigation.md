@@ -36,3 +36,21 @@ export default function Page() {
   return <button type="button" onClick={() => navigate("/dashboard")}>Dashboard</button>
 }
 ```
+
+## The `isNavigating` state
+
+The `NavigationContext` provides an `isNavigating` boolean that indicates whether a navigation is currently in progress. This is useful for showing the loading state.
+
+```jsx
+import { useContext } from "react";
+import { NavigationContext } from "@django-bridge/react";
+
+export default function LoadingIndicator() {
+  const { isNavigating } = useContext(NavigationContext);
+
+  return (
+    <div className="loading-indicator">
+      {isNavigating ? "Loading..." : null}
+    </div>
+  );
+}
