@@ -48,6 +48,7 @@ export interface Navigation {
     options?: OpenOverlayOptions
   ) => void;
   refreshProps: () => Promise<void>;
+  isNavigating: boolean;
 }
 
 export const NavigationContext = React.createContext<Navigation>({
@@ -83,6 +84,7 @@ export const NavigationContext = React.createContext<Navigation>({
 
     return Promise.resolve();
   },
+  isNavigating: false,
 });
 
 // This context is used to allow form widgets to notify their forms that data has changed
