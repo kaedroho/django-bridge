@@ -7,7 +7,7 @@ interface HomeViewProps {
 }
 
 export default function HomeView({ time, navigation_test_url }: HomeViewProps) {
-  const { navigate, refreshProps, replacePath, frameId, path } =
+  const { navigate, refreshProps, replacePath, frameId, path, isNavigating } =
     React.useContext(NavigationContext);
 
   return (
@@ -15,6 +15,7 @@ export default function HomeView({ time, navigation_test_url }: HomeViewProps) {
       <h1>Django Bridge tests</h1>
       <p>Frame ID: {frameId}</p>
       <p>Path: {path}</p>
+      <p>Is navigating: {isNavigating ? "true" : "false"}</p>
       <p>The time is: {time.toLocaleString()}</p>
       <h2>Utilities</h2>
       <ul>
