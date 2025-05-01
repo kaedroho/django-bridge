@@ -70,6 +70,7 @@ export function OverrideLinks({
       submitForm: navigate,
       openOverlay: navigate,
       refreshProps: () => Promise.resolve(),
+      isNavigating: false,
     }),
     []
   );
