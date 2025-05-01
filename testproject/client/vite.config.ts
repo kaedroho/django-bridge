@@ -11,4 +11,10 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  resolve: {
+    alias: {
+      "@django-bridge/react": "/code/packages/react/src/index.tsx",
+      "@common": "/code/packages/common/index.ts",
+    },
+  },
 });
