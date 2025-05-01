@@ -4,6 +4,7 @@ import * as DjangoBridge from "@django-bridge/react";
 import "./index.css";
 
 import HomeView from "./views/Home";
+import NavigationView from "./views/Navigation";
 import { CSRFTokenContext } from "./contexts";
 import FormDef from "./adapters/Form";
 import FieldDef from "./adapters/Field";
@@ -15,6 +16,7 @@ const config = new DjangoBridge.Config();
 
 // Add your views here
 config.addView("Home", HomeView);
+config.addView("Navigation", NavigationView);
 
 // Add your context providers here
 config.addContextProvider("csrf_token", CSRFTokenContext);
