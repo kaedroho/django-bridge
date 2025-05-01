@@ -2,15 +2,56 @@ import React from "react";
 import { Link, NavigationContext } from "@django-bridge/react";
 
 interface HomeViewProps {
+  time: Date;
   navigation_test_url: string;
 }
 
-export default function HomeView({ navigation_test_url }: HomeViewProps) {
-  const { navigate } = React.useContext(NavigationContext);
+export default function HomeView({ time, navigation_test_url }: HomeViewProps) {
+  const { navigate, refreshProps, replacePath, frameId, path } =
+    React.useContext(NavigationContext);
 
   return (
     <>
       <h1>Django Bridge tests</h1>
+      <p>Frame ID: {frameId}</p>
+      <p>Path: {path}</p>
+      <p>The time is: {time.toLocaleString()}</p>
+      <h2>Utilities</h2>
+      <ul>
+        <li>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              refreshProps();
+            }}
+          >
+            Refresh props from server
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              replacePath(frameId, "/?test=replace_path");
+            }}
+          >
+            Modify query params, without reloading the page
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              replacePath(frameId, "/replace_path");
+            }}
+          >
+            Replace the path, without reloading the page
+          </a>
+        </li>
+      </ul>
       <h2>Navigation</h2>
       <ul>
         <li>

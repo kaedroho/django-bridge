@@ -1,10 +1,13 @@
 from django.urls import reverse
+from django.utils import timezone
 from django_bridge.response import Response
 
 
 def home(request):
     return Response(
-        request, "Home", {"navigation_test_url": reverse("navigation_test")}
+        request,
+        "Home",
+        {"time": timezone.now(), "navigation_test_url": reverse("navigation_test")},
     )
 
 
