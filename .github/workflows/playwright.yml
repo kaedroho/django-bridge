@@ -38,10 +38,23 @@ jobs:
           cd testproject
           docker compose run server django-admin migrate
 
+      - name: Start Docker services in background
+        run: |
+          cd testproject
+          docker compose up -d
+          # Wait for services to be ready
+          sleep 30
+
       - name: Run Playwright tests
         run: |
           cd testproject
           npm test
+
+      - name: Stop Docker services
+        if: always()
+        run: |
+          cd testproject
+          docker compose down
 
       - uses: actions/upload-artifact@v4
         if: always()
