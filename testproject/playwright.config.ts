@@ -75,7 +75,7 @@ export default defineConfig({
   webServer: {
     command: "make start",
     url: "http://localhost:8000",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     timeout: 120 * 1000, // 2 minutes to allow for Docker setup
   },
 });
