@@ -15,6 +15,7 @@ export default defineConfig({
     alias: {
       "@django-bridge/react": "/code/packages/react/src/index.tsx",
       "@common": "/code/packages/common/index.ts",
+      "telepath-unpack": "/code/testproject/client/node_modules/telepath-unpack",
     },
   },
 });
