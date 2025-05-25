@@ -48,7 +48,7 @@ jobs:
       - name: Run Playwright tests
         run: |
           cd testproject
-          npm test
+          DEBUG=pw:browser,pw:api,pw:webserver npm test
 
       - name: Stop Docker services
         if: always()
