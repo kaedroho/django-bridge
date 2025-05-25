@@ -1,2 +1,7 @@
 __pycache__
+node_modules/
+test-results/
+playwright-report/
+playwright/.cache/
+package-lock.json
 /client/node_modules
