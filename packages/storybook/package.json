@@ -1,6 +1,6 @@
 {
   "name": "@django-bridge/storybook",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Storybook Helpers for Django Bridge projects.",
   "repository": "https://github.com/django-bridge/django-bridge",
   "license": "BSD-3-Clause",
@@ -36,7 +36,7 @@
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "@django-bridge/react": "^0.4.0",
+    "@django-bridge/react": "^0.5.0",
     "react": "^18.2.0"
   }
 }
