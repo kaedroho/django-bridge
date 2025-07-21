@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-## What is Django Bridge?
+### What is Django Bridge?
 
 Django Bridge is a Python and TypeScript package that makes it a lot easier to build React frontends for Django applications.
 
@@ -12,25 +12,25 @@ It takes care of routing requests (using Django URL patterns) and marshalling da
 
 Working on a Django Bridge app feels a lot like working on a traditional MVC Django app but instead of templates, you use React components.
 
-## What are the main advantages of Django Bridge?
+### What are the main advantages of Django Bridge?
 
-### Lighter then traditional SPA
+#### Lighter then traditional SPA
 
 Django Bridge encourages putting application logic on the server,  using purpose-built Django views instead of generic APIs and keeping the client-side light and nimble.
 
 But like an SPA, page loads are fast and you can easily bundle React components when you need them.
 
-### ### Access the React ecosystem without heavy boilerplate
+#### React without the heavy boilerplate
 
 Django Bridge only requires vanilla react, no redux, react-router, is required if you don't want them. Just one small (~15KB) library and a little bit of [configuration](https://github.com/django-bridge/django-react-cms/blob/9873e1295701a20a94ce0496af6b4e04f44a9843/client/src/main.tsx#L24-L44) is required to start rendering pages.
 
 There is nothing fancy about the tooling (Vite based) so is compatible with all common React component libaries and styling frameworks. It even has support for Storybook!
 
-### Built for Django
+#### Built for Django
 
 Django Bridge has deep support for Django, so features such as forms, messaging, user auth, and internationalisation work in a similar way to a regular Django app.
 
-## How does it work?
+### How does it work?
 
 On the backend, it's very similar to a traditional Django app. The difference is, views return JSON instead of HTML to describe what to render.
 
@@ -69,12 +69,11 @@ When this response is received by the frontend, it is rendered and then displaye
 
 On the very first request, the browser will be expecting HTML. So we have a Django middleware that checks if the request was from the browser or from a background `fetch()`, if it's from the browser, the responses is wrapped with a "bootstrap" HTML template that loads the frontend bundle and renders the first response.
 
-## Should I use it?
+### Should I use it?
 
-If you're about to build a web app or SaaS product with Django and React, this library could save you a lot of time. It provides all the necessary tools to integrate a React frontend with Django and includes a [project template](/docs/start) with simple Vite-based frontend tooling to get you started.
+Django Bridge is a good choice when:
 
-If you want to add React to an existing Django application, Django Bridge can be very helpful. It uses Django's URL routing, views, and forms, allowing you to keep your application logic intact and  port templates to React incrementally.
+- You are building an application, not a website
+- You want to use React
+- You are building the frontend and backend together
 
-However, if you are building a public website that requires good SEO, Django Bridge may not be the best option. Since all Django Bridge views are client-side rendered, it is difficult for search engines to read the content.
-
-Additionally, Django Bridge may not be ideal for organizations where the React frontend and Django backend are maintained by separate teams, as these components need to be tightly coupled.
