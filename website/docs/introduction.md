@@ -32,9 +32,9 @@ Django Bridge has deep support for Django, so features such as forms, messaging,
 
 ### How does it work?
 
-On the backend, it's very similar to a traditional Django app. The difference is, views return JSON instead of HTML to describe what to render.
+The Django side is very similar to a traditional Django app: Every page has a URL, and every URL routes to a view that processes requests. The difference is, views return JSON instead of HTML to describe what to render and the rendering is done by React instead of a template.
 
-When a user clicks a link in your app, a `fetch()` request is made to the application in the background. This request is routed by Django to a view that processes the request and returns a JSON document like the following:
+When a user clicks a link, a background HTTP request is made to Django which routes the request to a view and returns a JSON document describing what to render next:
 
 ```
 {
@@ -65,9 +65,9 @@ This provides everything the frontend needs to know to render the page:
 - `metadata`: This includes the `title` to show in the browser bar, but can include other metadata fields as well
 - `context`: Global data that is added to all responses automatically, used for user details, URLs, CSRF token. These get translated into React contexts.
 
-When this response is received by the frontend, it is rendered and then displayed to the user.
+On the very first request, the response is wrapped with a "bootstrap" HTML template that loads the frontend bundle and renders the first response. Subsequent requests after that update the page using the JSON responses.
 
-On the very first request, the browser will be expecting HTML. So we have a Django middleware that checks if the request was from the browser or from a background `fetch()`, if it's from the browser, the responses is wrapped with a "bootstrap" HTML template that loads the frontend bundle and renders the first response.
+Django Bridge uses Telepath to allow any Python object to be serialized into JSON and deserialized into JavaScript objects This is useful for rendering Django forms and widgets with React.
 
 ### Should I use it?
 
