@@ -1,7 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 import { FunctionComponent } from "react";
-import Telepath from "telepath-unpack";
+import Telepath from "./telepathUnpack";
 
 export class Config {
   public views: Map<string, FunctionComponent>;
