@@ -133,7 +133,8 @@ export function useNavigationController(
       response: DjangoBridgeResponse,
       path: string,
       pushState = true,
-      neverReload = false
+      neverReload = false,
+      initial = false
     ): Promise<void> => {
       if (response.action === "reload") {
         if (!parent) {
@@ -151,6 +152,11 @@ export function useNavigationController(
         // If this navigation controller is handling an overlay, make sure the response can be
         // loaded in a overlay. Otherwise, escalate it to parent
         if (parent && !response.overlay) {
+          if (initial) {
+            console.warn(
+              `openOverlay('${path}') returned a response that couldn't be rendered in an overlay.`
+            );
+          }
           return parent.handleResponse(response, path);
         }
 
@@ -305,7 +311,7 @@ export function useNavigationController(
   useEffect(() => {
     // Load initial response
     // eslint-disable-next-line no-void
-    void handleResponse(initialResponse, initialPath, false);
+    void handleResponse(initialResponse, initialPath, false, false, true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
