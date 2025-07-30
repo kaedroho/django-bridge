@@ -145,6 +145,11 @@ export function App({ config, initialResponse }: AppProps): ReactElement {
     renderOverlay: (content: ReactNode) => ReactNode,
     { onClose }: { onClose?: () => void } = {}
   ) => {
+    if (overlay) {
+      console.error("Unable to open overlay as an overlay is already open.");
+      return;
+    }
+
     navigationController.setIsNavigating(true);
 
     const initialOverlayResponse = await djangoGet(path, true);
