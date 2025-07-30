@@ -14,7 +14,7 @@ export interface OverlayProps {
   config: Config;
   initialResponse: DjangoBridgeResponse;
   initialPath: string;
-  parentNavigationContoller: NavigationController;
+  parentNavigationController: NavigationController;
   render: (content: ReactNode) => ReactNode;
   requestClose: () => void;
   closeRequested: boolean;
@@ -26,7 +26,7 @@ export default function Overlay({
   config,
   initialResponse,
   initialPath,
-  parentNavigationContoller,
+  parentNavigationController,
   render,
   requestClose,
   closeRequested,
@@ -36,7 +36,7 @@ export default function Overlay({
   const { pushMessage } = React.useContext(MessagesContext);
 
   const navigationController = useNavigationController(
-    parentNavigationContoller,
+    parentNavigationController,
     config.unpack,
     initialResponse,
     initialPath,
