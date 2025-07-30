@@ -177,7 +177,7 @@ export function App({ config, initialResponse }: AppProps): ReactElement {
               config={config}
               initialResponse={overlay.initialResponse}
               initialPath={overlay.initialPath}
-              parentNavigationContoller={navigationController}
+              parentNavigationController={navigationController}
               render={(content) => overlay.render(content)}
               requestClose={() => setOverlayCloseRequested(true)}
               closeRequested={overlayCloseRequested}
