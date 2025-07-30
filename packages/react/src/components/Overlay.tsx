@@ -49,6 +49,9 @@ export default function Overlay({
         // Push any new messages from server
         messages.forEach(pushMessage);
       },
+      onEscalate: () => {
+        onCloseCompleted();
+      },
       onOverlayClose: (messages: Message[]) => {
         // Push any new messages from server
         messages.forEach(pushMessage);

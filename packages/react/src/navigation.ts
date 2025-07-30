@@ -46,6 +46,7 @@ export function useNavigationController(
       newFrame: boolean,
       messages: Message[]
     ) => void;
+    onEscalate?: () => void;
     onOverlayClose?: (messages: Message[]) => void;
     onServerError?: (kind: "server" | "network") => void;
   } = {}
@@ -157,7 +158,13 @@ export function useNavigationController(
               `openOverlay('${path}') returned a response that couldn't be rendered in an overlay.`
             );
           }
-          return parent.handleResponse(response, path);
+          const r = parent.handleResponse(response, path);
+          // Call escalate callback, this will instantly close the overlay so the response can be rendered
+          // by the main window.
+          if (callbacks.onEscalate) {
+            callbacks.onEscalate();
+          }
+          return r;
         }
 
         // Unpack props and context
