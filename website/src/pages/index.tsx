@@ -19,7 +19,7 @@ function HomepageHeader() {
           <span className={styles.visuallyhidden}>Django Bridge</span>
         </Heading>
         <p className={styles.heroSubtitle}>
-          Build apps with <b>Django</b> and{" "}
+          Build <b>Django</b> and{" "}
           <b style={{ whiteSpace: "nowrap" }}>
             <ReactLogo
               style={{
@@ -29,7 +29,7 @@ function HomepageHeader() {
                 paddingTop: "0.1em",
               }}
             />
-            React, the easy way
+            React apps, the easy way
           </b>
         </p>
         <div className={styles.buttons}>
