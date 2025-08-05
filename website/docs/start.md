@@ -20,7 +20,7 @@ Make sure you have an up-to-date version of [Node.js](https://nodejs.org/) insta
 Run the following command in your command line:
 
 ```sh
-npm create django-bridge@latest
+npm create django-bridge@latest myproject
 ```
 
 This command will install and execute [`create-django-bridge`](https://www.npmjs.com/package/create-django-bridge), the official Django Bridge project scaffolding tool.
