@@ -6,13 +6,19 @@ sidebar_position: 1
 
 ### What is Django Bridge?
 
-Django Bridge is a Python and TypeScript package that makes it a lot easier to build React frontends for Django applications.
+Django Bridge is a Python and TypeScript package for building React frontends for Django applications.
 
-It takes care of routing requests (using Django URL patterns) and marshalling data from Django views and forms to React.
+It allows you to use Django URLpatterns and views for building single page apps.
+
+## Why use Django routing instead of react-router?
+
+- **Faster backend** - Views provide a way to make specialised endpoints for each part of your app that can be optimised, and don't incur the complexity of GraphQL.
+- **Lighter frontend** - All routing is on the server, views provide a great place to keep all your app logic. You can just use React as a templating system if you want to.
+- **Work with Django ecosystem** - You can use Django middleware, auth tools, forms, and even share your URL space with regular Django HTML views and APIs -- handy for migrating to React, or using the Django admin.
 
 ### How does it work?
 
-The Django side is very similar to a traditional Django app: Every page has a URL, and every URL routes to a view that processes requests. The difference is, views return JSON instead of HTML to describe what to render and the rendering is done by React instead of a template.
+Like a regular Django app, all requests are routed by URL patterns defined in Python to a Django view, instead of an API. Views return JSON instead of HTML to describe what to render and the rendering is done by React instead of a template.
 
 When a user clicks a link, a background HTTP request is made to Django which routes the request to a view and returns a JSON document describing what to render next:
 
