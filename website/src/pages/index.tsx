@@ -61,10 +61,7 @@ export default function Home(): JSX.Element {
       <main>
         <section className={styles.section}>
           <h2>Build your application logic in Django</h2>
-          <p>
-            Build your backend like a regular Django app using Django views,
-            forms and URL routing.
-          </p>
+          <p>Build your backend using Django URLs, views and forms.</p>
           <CodeBlock language="python">{`from django_bridge import Response
 
 def form(request):
@@ -80,23 +77,17 @@ def form(request):
   `}</CodeBlock>
           <p>
             You can put as much logic as you like into views, as it stays on the
-            server it won't add bloat to your application and you also have
-            direct access to the database.
+            server it won't add bloat to your application.
           </p>
           <p>
             Most Django extensions work without changes (for example, you can
-            use the amazing{" "}
+            use the{" "}
             <a href="https://docs.allauth.org/en/latest/" rel="nofollow">
               Django allauth
             </a>{" "}
             extension to implement federated authentication).
           </p>
-          <p>
-            Instead of HTML, the views return JSON describing what the frontend
-            should render. Anything JSON-serialisable can be returned. You can
-            register <a href="/docs/python2react/">JavaScript adapters</a> to
-            convert non-JSON serialisable objects, such as forms.
-          </p>
+          <p>Views return JSON describing what the frontend should render.</p>
         </section>
         <section className={styles.section}>
           <h2>Render the frontend with React</h2>
@@ -125,15 +116,10 @@ def form(request):
     );
   }`}</CodeBlock>
           <p>
-            <a href="/docs/global_context/">Global context providers</a> can be
-            created to make global data such as URLs, CSRF Tokens or info about
-            the user available as React contexts.
-          </p>
-          <p>
             It's unopinionated about how you build your frontend, so you can use
             any React component library or styling framework that you like.
           </p>
-          <p>Supports Vite.js, and Storybook. Next.js support coming soon!</p>
+          <p>Supports Vite.js, Storybook, and Next.js!</p>
         </section>
       </main>
     </Layout>
