@@ -17,7 +17,7 @@ Validation is all performed by Django and the logic doesn’t have to be repeate
 
 ## Building a form with Django Bridge
 
-In this section, we will build a simple form that takes a users name. Note that this is the same example used by [Django documentation](https://docs.djangoproject.com/en/5.0/topics/forms/#building-a-form-in-django) and has been adapted for Django Bridge.
+In this section, we will build a simple form that takes a user's name. Note that this is the same example used by [Django documentation](https://docs.djangoproject.com/en/5.2/topics/forms/#building-a-form-in-django) and has been adapted for Django Bridge.
 
 ### The form class
 
