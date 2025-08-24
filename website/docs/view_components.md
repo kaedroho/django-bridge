@@ -12,8 +12,8 @@ We call these components "View Components" to distinguish them from regular UI c
 Here's a view component that will render the current time from a prop (see the [example in Writing Views](/docs/views#a-simple-view) for the backend):
 
 ```jsx
-export default function CurrentTimeView({ time }) {
-    return <h1>It is now {time}</h1>;
+export default function CurrentTimeView({ time }: { time: Date }) {
+    return <h1>It is now {time.toString()}</h1>;
 }
 ```
 
