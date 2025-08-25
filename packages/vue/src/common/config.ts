@@ -16,10 +16,7 @@ export class Config {
     this.addAdapter("Date", Date);
   }
 
-  public addView = <P>(
-    name: string,
-    component: any
-  ): Config => {
+  public addView = <P>(name: string, component: any): Config => {
     this.views.set(name, component);
     return this;
   };

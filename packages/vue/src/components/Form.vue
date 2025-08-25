@@ -1,14 +1,22 @@
 <template>
   <form @submit="onSubmit" v-bind="$attrs">
-    <div v-if="isDirty && !disableDirtyCheck" class="dirty-form-marker" style="display: none"></div>
+    <div
+      v-if="isDirty && !disableDirtyCheck"
+      class="dirty-form-marker"
+      style="display: none"
+    ></div>
     <slot />
   </form>
 </template>
 
 <script setup lang="ts">
-import { ref, provide, inject } from 'vue';
-import { NavigationKey, FormSubmissionStatusKey, FormWidgetChangeNotificationKey } from '../contexts';
-import { DirtyFormKey, useDirtyFormMarker } from '../dirtyform';
+import { ref, provide, inject } from "vue";
+import {
+  NavigationKey,
+  FormSubmissionStatusKey,
+  FormWidgetChangeNotificationKey,
+} from "../contexts";
+import { DirtyFormKey, useDirtyFormMarker } from "../dirtyform";
 
 interface Props {
   isDirty?: boolean;
@@ -73,8 +81,8 @@ const onSubmit = (e: Event) => {
       isSubmitting.value = true;
 
       // Note: Don't need to switch isSubmitting back to false on .then(), since the Form should be unmounted at that point
-      submitForm(e.target.action, data).catch(() =>
-        isSubmitting.value = false
+      submitForm(e.target.action, data).catch(
+        () => (isSubmitting.value = false)
       );
     } else if (e.target.method === "get") {
       e.preventDefault();
@@ -82,9 +90,7 @@ const onSubmit = (e: Event) => {
       const dataString = Array.from(data.entries())
         .map(
           (x) =>
-            `${encodeURIComponent(x[0])}=${encodeURIComponent(
-              x[1] as string
-            )}`
+            `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1] as string)}`
         )
         .join("&");
 
@@ -96,7 +102,7 @@ const onSubmit = (e: Event) => {
       isSubmitting.value = true;
 
       // Note: Don't need to switch isSubmitting back to false on .then(), since the Form should be unmounted at that point
-      navigate(path).catch(() => isSubmitting.value = false);
+      navigate(path).catch(() => (isSubmitting.value = false));
     }
   }
 };

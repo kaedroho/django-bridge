@@ -5,13 +5,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, inject, h } from 'vue';
-import { DjangoBridgeResponse, Frame, Message } from '../common';
-import Config from '../config';
-import { MessagesKey, OverlayKey, OverlayContextType } from '../contexts';
-import { DirtyFormKey } from '../dirtyform';
-import { NavigationController, useNavigationController } from '../navigation';
-import Browser from './Browser.vue';
+import { computed, provide, inject, h } from "vue";
+import { DjangoBridgeResponse, Frame, Message } from "../common";
+import Config from "../config";
+import { MessagesKey, OverlayKey, OverlayContextType } from "../contexts";
+import { DirtyFormKey } from "../dirtyform";
+import { NavigationController, useNavigationController } from "../navigation";
+import Browser from "./Browser.vue";
 
 interface Props {
   config: Config;
@@ -68,9 +68,9 @@ if (!dirtyForm) {
   throw new Error("Overlay must be used within a DirtyFormScope");
 }
 
-const requestCloseCallback = (
-  { skipDirtyFormCheck = false }: { skipDirtyFormCheck?: boolean } = {}
-) => {
+const requestCloseCallback = ({
+  skipDirtyFormCheck = false,
+}: { skipDirtyFormCheck?: boolean } = {}) => {
   if (!skipDirtyFormCheck && dirtyForm.isDirty) {
     dirtyForm.requestUnload().then(() => props.requestClose());
   } else {

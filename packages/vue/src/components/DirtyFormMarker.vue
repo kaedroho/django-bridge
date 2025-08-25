@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDirtyFormMarker } from '../dirtyform';
+import { useDirtyFormMarker } from "../dirtyform";
 
 useDirtyFormMarker();
 </script>

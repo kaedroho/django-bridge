@@ -5,12 +5,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, inject } from 'vue';
-import { NavigationController } from '../navigation';
-import { NavigateOptions, OpenOverlayOptions, NavigationKey } from '../contexts';
-import { DirtyFormKey } from '../dirtyform';
-import Config from '../config';
-import RenderFrame from './RenderFrame.vue';
+import { computed, provide, inject } from "vue";
+import { NavigationController } from "../navigation";
+import {
+  NavigateOptions,
+  OpenOverlayOptions,
+  NavigationKey,
+} from "../contexts";
+import { DirtyFormKey } from "../dirtyform";
+import Config from "../config";
+import RenderFrame from "./RenderFrame.vue";
 
 interface Props {
   config: Config;
