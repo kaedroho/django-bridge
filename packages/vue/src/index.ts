@@ -28,7 +28,8 @@ export { DirtyFormKey, useDirtyForm, useDirtyFormMarker } from "./dirtyform";
 export type { DirtyForm } from "./dirtyform";
 
 // Export composables (equivalent to React hooks)
-export { useAutoRefresh } from "./composables";
+export { useAutoRefresh, useNavigation, useMessages } from "./composables";
+export type { Timer, Navigation, Messages } from "./composables";
 
 // Export navigation controller
 export type { NavigationController } from "./navigation";
