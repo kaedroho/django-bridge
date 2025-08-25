@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDirtyFormScope } from "../dirtyform";
+import { useDirtyFormScope } from "../composables";
 
 interface Props {
   handleBrowserUnload?: boolean;

@@ -12,7 +12,7 @@ import {
   OpenOverlayOptions,
   NavigationKey,
 } from "../contexts";
-import { DirtyFormKey } from "../dirtyform";
+import { DirtyFormKey } from "../composables";
 import Config from "../config";
 import RenderFrame from "./RenderFrame.vue";
 

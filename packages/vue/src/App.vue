@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, provide, onMounted } from "vue";
-import { Message, DjangoBridgeResponse, djangoGet, Frame } from "./common";
+import { Message, DjangoBridgeResponse, djangoGet, Frame } from "@common";
 import { useNavigationController } from "./navigation";
 import DirtyFormScope from "./components/DirtyFormScope.vue";
 import Browser from "./components/Browser.vue";

@@ -6,10 +6,10 @@
 
 <script setup lang="ts">
 import { computed, provide, inject, h } from "vue";
-import { DjangoBridgeResponse, Frame, Message } from "../common";
+import { DjangoBridgeResponse, Frame, Message } from "@common";
 import Config from "../config";
 import { MessagesKey, OverlayKey, OverlayContextType } from "../contexts";
-import { DirtyFormKey } from "../dirtyform";
+import { DirtyFormKey } from "../composables";
 import { NavigationController, useNavigationController } from "../navigation";
 import Browser from "./Browser.vue";
 

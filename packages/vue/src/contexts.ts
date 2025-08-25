@@ -1,5 +1,5 @@
 import { InjectionKey, Ref } from "vue";
-import { Message } from "./common";
+import { Message } from "@common";
 
 export interface NavigateOptions {
   pushState?: boolean;

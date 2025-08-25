@@ -8,7 +8,7 @@ import {
   Message,
   Frame,
   Metadata,
-} from "./common";
+} from "@common";
 
 let nextFrameId = 1;
 
