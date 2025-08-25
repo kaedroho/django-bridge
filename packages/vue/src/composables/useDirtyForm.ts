@@ -18,13 +18,13 @@ export const DirtyFormKey: InjectionKey<DirtyForm> = Symbol("dirtyForm");
  */
 export function useDirtyForm(): DirtyForm {
   const dirtyForm = inject(DirtyFormKey);
-  
+
   if (!dirtyForm) {
     throw new Error(
       "useDirtyForm must be used within a DirtyFormScope component. " +
         "Make sure your component is wrapped in a DirtyFormScope."
     );
   }
-  
+
   return dirtyForm;
 }

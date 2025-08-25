@@ -10,7 +10,7 @@ export const DirtyFormMarkerCallbackKey: InjectionKey<() => void> = Symbol(
  */
 export function useDirtyFormMarker(): () => void {
   const callback = inject(DirtyFormMarkerCallbackKey);
-  
+
   if (!callback) {
     throw new Error(
       "useDirtyFormMarker must be used within a DirtyFormScope component. " +
