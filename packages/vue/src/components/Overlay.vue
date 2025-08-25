@@ -78,14 +78,14 @@ const requestCloseCallback = (
   }
 };
 
-const overlayContext: OverlayContextType = computed(() => ({
+const overlayContext: OverlayContextType = {
   overlay: true,
   closeRequested: props.closeRequested,
   requestClose: requestCloseCallback,
   onCloseCompleted: props.onCloseCompleted,
-}));
+};
 
-provide(OverlayKey, overlayContext.value);
+provide(OverlayKey, overlayContext);
 
 const browserContent = computed(() => {
   return h(Browser, {

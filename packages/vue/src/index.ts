@@ -1,5 +1,4 @@
-// Export App component as default and named export
-export { default } from "./App.vue";
+// Export App component as named export only
 export { default as App } from "./App.vue";
 
 // Export Config class - matches React pattern exactly
