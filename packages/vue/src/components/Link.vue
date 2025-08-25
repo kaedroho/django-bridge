@@ -1,16 +1,12 @@
 <template>
-  <a
-    :href="href || '#'"
-    @click="onClick"
-    v-bind="$attrs"
-  >
+  <a :href="href || '#'" @click="onClick" v-bind="$attrs">
     <slot />
   </a>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue';
-import { NavigationKey } from '../contexts';
+import { inject } from "vue";
+import { NavigationKey } from "../contexts";
 
 interface Props {
   href?: string;
@@ -30,7 +26,9 @@ if (!navigation) {
 const onClick = (e: MouseEvent) => {
   if (props.href) {
     e.preventDefault();
-    navigation.navigate(props.href, { skipDirtyFormCheck: props.skipDirtyFormCheck });
+    navigation.navigate(props.href, {
+      skipDirtyFormCheck: props.skipDirtyFormCheck,
+    });
   }
 };
 </script>

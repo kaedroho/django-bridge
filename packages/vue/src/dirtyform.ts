@@ -1,4 +1,12 @@
-import { ref, reactive, provide, inject, onMounted, onUnmounted, InjectionKey } from "vue";
+import {
+  ref,
+  reactive,
+  provide,
+  inject,
+  onMounted,
+  onUnmounted,
+  InjectionKey,
+} from "vue";
 
 export interface DirtyForm {
   isDirty: boolean;
@@ -10,8 +18,10 @@ export interface DirtyForm {
   unloadConfirmed: boolean;
 }
 
-export const DirtyFormKey: InjectionKey<DirtyForm> = Symbol('dirtyForm');
-export const DirtyFormMarkerCallbackKey: InjectionKey<() => void> = Symbol('dirtyFormMarkerCallback');
+export const DirtyFormKey: InjectionKey<DirtyForm> = Symbol("dirtyForm");
+export const DirtyFormMarkerCallbackKey: InjectionKey<() => void> = Symbol(
+  "dirtyFormMarkerCallback"
+);
 
 export function useDirtyFormScope(handleBrowserUnload = false) {
   const unloadRequested = ref<boolean>(false);
@@ -21,7 +31,8 @@ export function useDirtyFormScope(handleBrowserUnload = false) {
   const containerRef = ref<HTMLDivElement | null>(null);
 
   const checkIsDirty = () =>
-    (containerRef.value && !!containerRef.value.querySelector("div.dirty-form-marker")) ||
+    (containerRef.value &&
+      !!containerRef.value.querySelector("div.dirty-form-marker")) ||
     false;
 
   // If this is the root scope, add a beforeunload handler if there is a dirty form

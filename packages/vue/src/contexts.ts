@@ -17,7 +17,7 @@ export interface OverlayContextType {
   onCloseCompleted: () => void;
 }
 
-export const OverlayKey: InjectionKey<OverlayContextType> = Symbol('overlay');
+export const OverlayKey: InjectionKey<OverlayContextType> = Symbol("overlay");
 
 export interface Navigation {
   frameId: number;
@@ -36,17 +36,20 @@ export interface Navigation {
   isNavigating: boolean;
 }
 
-export const NavigationKey: InjectionKey<Navigation> = Symbol('navigation');
+export const NavigationKey: InjectionKey<Navigation> = Symbol("navigation");
 
 // Form widget change notification key
-export const FormWidgetChangeNotificationKey: InjectionKey<() => void> = Symbol('formWidgetChange');
+export const FormWidgetChangeNotificationKey: InjectionKey<() => void> =
+  Symbol("formWidgetChange");
 
 // Form submission status key
-export const FormSubmissionStatusKey: InjectionKey<Ref<boolean>> = Symbol('formSubmissionStatus');
+export const FormSubmissionStatusKey: InjectionKey<Ref<boolean>> = Symbol(
+  "formSubmissionStatus"
+);
 
 export interface Messages {
   messages: Message[];
   pushMessage: (message: Message) => void;
 }
 
-export const MessagesKey: InjectionKey<Messages> = Symbol('messages');
+export const MessagesKey: InjectionKey<Messages> = Symbol("messages");

@@ -25,19 +25,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, provide, onMounted } from 'vue';
-import {
-  Message,
-  DjangoBridgeResponse,
-  djangoGet,
-  Frame,
-} from './common';
-import { useNavigationController } from './navigation';
-import DirtyFormScope from './components/DirtyFormScope.vue';
-import Browser from './components/Browser.vue';
-import Config from './config';
-import { MessagesKey } from './contexts';
-import Overlay from './components/Overlay.vue';
+import { ref, reactive, provide, onMounted } from "vue";
+import { Message, DjangoBridgeResponse, djangoGet, Frame } from "./common";
+import { useNavigationController } from "./navigation";
+import DirtyFormScope from "./components/DirtyFormScope.vue";
+import Browser from "./components/Browser.vue";
+import Config from "./config";
+import { MessagesKey } from "./contexts";
+import Overlay from "./components/Overlay.vue";
 
 export interface AppProps {
   config: Config;

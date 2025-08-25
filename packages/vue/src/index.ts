@@ -26,7 +26,12 @@ export type { NavigationController } from "./navigation";
 export { useNavigationController } from "./navigation";
 
 // Export common types
-export type { Frame, Message, DjangoBridgeResponse as Response, Metadata } from "./common";
+export type {
+  Frame,
+  Message,
+  DjangoBridgeResponse as Response,
+  Metadata,
+} from "./common";
 
 // Vue components are now exported directly from index
 // Users can import like: import App from '@django-bridge/vue' or import { App } from '@django-bridge/vue'

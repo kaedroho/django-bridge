@@ -1,18 +1,16 @@
 <template>
-    <div :key="frame.id">
-    <component
-      :is="viewComponent"
-      v-bind="frame.props"
-      v-if="viewComponent"
-    />
-    <p v-else style="color: red; font-weight: bold;">Unknown view '{{ frame.view }}'</p>
+  <div :key="frame.id">
+    <component :is="viewComponent" v-bind="frame.props" v-if="viewComponent" />
+    <p v-else style="color: red; font-weight: bold">
+      Unknown view '{{ frame.view }}'
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, provide } from 'vue';
-import { Frame } from '../common';
-import Config from '../config';
+import { computed, provide } from "vue";
+import { Frame } from "../common";
+import Config from "../config";
 
 interface Props {
   config: Config;
