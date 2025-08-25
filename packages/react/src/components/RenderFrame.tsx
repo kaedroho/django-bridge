@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, FunctionComponent } from "react";
 import { Frame } from "@common";
 
 import Config from "../config";
@@ -10,7 +10,9 @@ export interface RenderFrameProps {
 
 function RenderFrame({ config, frame }: RenderFrameProps): ReactElement {
   // Get the view component
-  const View = config.views.get(frame.view);
+  const View = config.views.get(frame.view) as FunctionComponent<
+    Record<string, unknown>
+  >;
   if (!View) {
     return <p>Unknown view &apos;{frame.view}&apos;</p>;
   }
