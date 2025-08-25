@@ -1,10 +1,9 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
-import { FunctionComponent } from "react";
 import Telepath from "./telepathUnpack";
 
 export class Config {
-  public views: Map<string, FunctionComponent>;
+  public views: Map<string, any>;
 
   // Telepath Doesn't support typescript yet
   public telepathRegistry: Telepath;
@@ -17,11 +16,8 @@ export class Config {
     this.addAdapter("Date", Date);
   }
 
-  public addView = <P>(
-    name: string,
-    component: FunctionComponent<P>
-  ): Config => {
-    this.views.set(name, component as FunctionComponent<object>);
+  public addView = <P>(name: string, component: any): Config => {
+    this.views.set(name, component);
     return this;
   };
 

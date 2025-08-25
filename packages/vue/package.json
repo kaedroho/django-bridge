@@ -19,9 +19,7 @@
     "/src"
   ],
   "scripts": {
-    "build": "npm run build:lib && npm run build:types",
-    "build:lib": "vite build",
-    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist",
+    "build": "tsdown",
     "check-types": "vue-tsc --noEmit"
   },
   "browserslist": {
@@ -42,10 +40,10 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@vue/tsconfig": "^0.8.1",
+    "tsdown": "^0.14.2",
     "typescript": "^5.9.2",
-    "vite": "^7.1.3",
-    "vue-tsc": "^3.0.6",
-    "@vitejs/plugin-vue": "^6.0.1"
+    "unplugin-vue": "^7.0.1",
+    "vue-tsc": "^3.0.6"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
