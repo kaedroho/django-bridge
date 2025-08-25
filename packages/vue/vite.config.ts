@@ -15,6 +15,8 @@ export default defineConfig({
       // Make sure to externalize deps that shouldn't be bundled
       external: ['vue'],
       output: {
+        // Use named exports to avoid default export issues
+        exports: 'named',
         // Provide global variables to use in the UMD build
         globals: {
           vue: 'Vue'

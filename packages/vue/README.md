@@ -14,8 +14,7 @@ npm install @django-bridge/vue vue
 
 ```typescript
 import { createApp } from 'vue';
-import App, { Config } from '@django-bridge/vue';
-// OR: import { App, Config } from '@django-bridge/vue';
+import { App, Config } from '@django-bridge/vue';
 import './index.css';
 
 import HomeView from './views/Home';

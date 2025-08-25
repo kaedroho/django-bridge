@@ -17,7 +17,9 @@
         "moduleResolution": "Node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": true,
+        "noEmit": false,
+        "declaration": true,
+        "emitDeclarationOnly": false,
         "jsx": "preserve",
     },
     "include": [
