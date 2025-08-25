@@ -16,7 +16,7 @@ import {
   FormSubmissionStatusKey,
   FormWidgetChangeNotificationKey,
 } from "../contexts";
-import { DirtyFormKey, useDirtyFormMarker } from "../dirtyform";
+import { DirtyFormKey, useDirtyFormMarker } from "../composables";
 
 interface Props {
   isDirty?: boolean;

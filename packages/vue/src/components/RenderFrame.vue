@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { computed, provide } from "vue";
-import { Frame } from "../common";
+import { Frame } from "@common";
 import Config from "../config";
 
 interface Props {

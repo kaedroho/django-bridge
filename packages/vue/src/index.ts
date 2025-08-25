@@ -21,15 +21,19 @@ export {
   FormSubmissionStatusKey,
   MessagesKey,
 } from "./contexts";
-export type { Navigation, Messages } from "./contexts";
-
-// Export dirty form utilities
-export { DirtyFormKey, useDirtyForm, useDirtyFormMarker } from "./dirtyform";
-export type { DirtyForm } from "./dirtyform";
-
 // Export composables (equivalent to React hooks)
-export { useAutoRefresh, useNavigation, useMessages } from "./composables";
-export type { Timer, Navigation, Messages } from "./composables";
+export {
+  useAutoRefresh,
+  useNavigation,
+  useMessages,
+  useDirtyForm,
+  useDirtyFormMarker,
+  useDirtyFormScope,
+} from "./composables";
+export type { Timer, Navigation, Messages, DirtyForm } from "./composables";
+
+// Export injection keys
+export { DirtyFormKey, DirtyFormMarkerCallbackKey } from "./composables";
 
 // Export navigation controller
 export type { NavigationController } from "./navigation";
@@ -41,7 +45,7 @@ export type {
   Message,
   DjangoBridgeResponse as Response,
   Metadata,
-} from "./common";
+} from "@common";
 
 // Vue components are now exported directly from index
 // Users can import like: import App from '@django-bridge/vue' or import { App } from '@django-bridge/vue'
