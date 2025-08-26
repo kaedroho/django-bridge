@@ -1,29 +1,3 @@
-<template>
-  <DirtyFormScope :handle-browser-unload="true">
-    <div>
-      <!-- Messages provider context -->
-      <Overlay
-        v-if="overlay"
-        :config="config"
-        :initial-response="overlay.initialResponse"
-        :initial-path="overlay.initialPath"
-        :parent-navigation-controller="navigationController"
-        :render="overlay.render"
-        :request-close="() => setOverlayCloseRequested(true)"
-        :close-requested="overlayCloseRequested"
-        :on-close-completed="onOverlayCloseCompleted"
-        :on-server-error="onServerError"
-      />
-      <Browser
-        v-if="!navigationController.isLoading"
-        :config="config"
-        :navigation-controller="navigationController"
-        :open-overlay="openOverlay"
-      />
-    </div>
-  </DirtyFormScope>
-</template>
-
 <script setup lang="ts">
 import { ref, reactive, provide, onMounted } from "vue";
 import { Message, DjangoBridgeResponse, djangoGet, Frame } from "@common";
@@ -189,3 +163,29 @@ onMounted(() => {
   };
 });
 </script>
+
+<template>
+  <DirtyFormScope :handle-browser-unload="true">
+    <div>
+      <!-- Messages provider context -->
+      <Overlay
+        v-if="overlay"
+        :config="config"
+        :initial-response="overlay.initialResponse"
+        :initial-path="overlay.initialPath"
+        :parent-navigation-controller="navigationController"
+        :render="overlay.render"
+        :request-close="() => setOverlayCloseRequested(true)"
+        :close-requested="overlayCloseRequested"
+        :on-close-completed="onOverlayCloseCompleted"
+        :on-server-error="onServerError"
+      />
+      <Browser
+        v-if="!navigationController.isLoading"
+        :config="config"
+        :navigation-controller="navigationController"
+        :open-overlay="openOverlay"
+      />
+    </div>
+  </DirtyFormScope>
+</template>

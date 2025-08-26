@@ -1,14 +1,3 @@
-<template>
-  <form @submit="onSubmit" v-bind="$attrs">
-    <div
-      v-if="isDirty && !disableDirtyCheck"
-      class="dirty-form-marker"
-      style="display: none"
-    ></div>
-    <slot />
-  </form>
-</template>
-
 <script setup lang="ts">
 import { ref, provide, inject } from "vue";
 import {
@@ -114,3 +103,14 @@ const formWidgetChangeNotificationCallback = () => {
 provide(FormSubmissionStatusKey, isSubmitting);
 provide(FormWidgetChangeNotificationKey, formWidgetChangeNotificationCallback);
 </script>
+
+<template>
+  <form @submit="onSubmit" v-bind="$attrs">
+    <div
+      v-if="isDirty && !disableDirtyCheck"
+      class="dirty-form-marker"
+      style="display: none"
+    ></div>
+    <slot />
+  </form>
+</template>

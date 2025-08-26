@@ -22,9 +22,9 @@
     </a>
 </p>
 
-With Django Bridge, you can create fast, user-friendly single-page-applications and use all components available in the React ecosystem while keeping all application logic in Django.
+With Django Bridge, you can create fast, user-friendly single-page-applications and use all components available in the React and Vue ecosystems while keeping all application logic in Django.
 
-Django Bridge applications use Django’s built-in URL routing and views, allowing you to build your backend like a regular Django app and render the frontend with React components instead of Django templates.
+Django Bridge applications use Django's built-in URL routing and views, allowing you to build your backend like a regular Django app and render the frontend with React or Vue components instead of Django templates.
 
 The package contains a Django middleware and a small (11KB) frontend library that handles the data fetching and adapting Python objects into JavaScript.
 
@@ -32,11 +32,12 @@ Find out more in our [Introduction](https://django-bridge.org/docs/introduction)
 
 ## Key Features
 
- - Quickly build React applications with all the app logic in Django views, no APIs required!
+ - Quickly build React or Vue applications with all the app logic in Django views, no APIs required!
  - Deeply integrated with Django. Supports Django forms, messages, and authentication
  - Open URLs in overlays to build modal interfaces
  - Use whatever UI component library/css framework you like
  - Supports Storybook and Vite hot module reloading
+ - Available for both React (`@django-bridge/react`) and Vue 3 (`@django-bridge/vue`)
 
 ## Demo project
 

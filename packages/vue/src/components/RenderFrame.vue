@@ -1,12 +1,3 @@
-<template>
-  <div :key="frame.id">
-    <component :is="viewComponent" v-bind="frame.props" v-if="viewComponent" />
-    <p v-else style="color: red; font-weight: bold">
-      Unknown view '{{ frame.view }}'
-    </p>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed, provide } from "vue";
 import { Frame } from "@common";
@@ -29,3 +20,12 @@ props.config.contextProviders.forEach((injectionKey, name) => {
   provide(injectionKey, props.frame.context[name]);
 });
 </script>
+
+<template>
+  <div :key="frame.id">
+    <component :is="viewComponent" v-bind="frame.props" v-if="viewComponent" />
+    <p v-else style="color: red; font-weight: bold">
+      Unknown view '{{ frame.view }}'
+    </p>
+  </div>
+</template>
