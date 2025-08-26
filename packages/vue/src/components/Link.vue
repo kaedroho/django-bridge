@@ -1,9 +1,3 @@
-<template>
-  <a :href="href || '#'" @click="onClick" v-bind="$attrs">
-    <slot />
-  </a>
-</template>
-
 <script setup lang="ts">
 import { inject } from "vue";
 import { NavigationKey } from "../contexts";
@@ -32,3 +26,9 @@ const onClick = (e: MouseEvent) => {
   }
 };
 </script>
+
+<template>
+  <a :href="href || '#'" @click="onClick" v-bind="$attrs">
+    <slot />
+  </a>
+</template>

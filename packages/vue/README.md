@@ -60,6 +60,10 @@ app.mount(rootElement);
 Import components directly from the package:
 
 ```vue
+<script setup>
+import { Form, Link } from '@django-bridge/vue';
+</script>
+
 <template>
   <Form @submit="handleSubmit">
     <input name="field1" v-model="field1" />
@@ -67,54 +71,56 @@ Import components directly from the package:
     <button type="submit">Submit</button>
   </Form>
 </template>
-
-<script setup>
-import Form from '@django-bridge/vue/components/Form.vue';
-import Link from '@django-bridge/vue/components/Link.vue';
-</script>
 ```
 
 ### Using Composables
 
 ```vue
 <script setup>
-import { useAutoRefresh, useNavigationController } from '@django-bridge/vue';
-import { inject } from 'vue';
+import { useAutoRefresh, useNavigation, useMessages } from '@django-bridge/vue';
 
 // Auto-refresh every 5 seconds
 useAutoRefresh(enabled.value, 5000);
 
-// Access navigation
-const navigation = inject(NavigationKey);
+// Access navigation - much cleaner than inject!
+const navigation = useNavigation();
+
+// Access messages
+const { messages, pushMessage } = useMessages();
+
+// Navigate programmatically
+const goToDashboard = () => {
+  navigation.navigate('/dashboard');
+};
 </script>
 ```
 
 ### Available Components
 
-- `App.vue` - Main application component
-- `components/Form.vue` - Django-integrated form component
-- `components/Link.vue` - Navigation link component
-- `components/Browser.vue` - Main browser component
-- `components/Overlay.vue` - Modal overlay component
-- `components/RenderFrame.vue` - Frame rendering component
-- `components/DirtyFormScope.vue` - Dirty form wrapper
-- `components/DirtyFormMarker.vue` - Dirty form marker
+- `App` - Main application component
+- `Form` - Django-integrated form component
+- `Link` - Navigation link component
+- `RenderFrame` - Frame rendering component
 
 ### Available Composables
 
-- `useNavigationController` - Navigation state management
+- `useNavigation` - Access navigation context (recommended)
+- `useMessages` - Access messages context (recommended)
 - `useAutoRefresh` - Auto-refresh functionality
-- `useDirtyForm` - Dirty form state
+- `useDirtyForm` - Dirty form state management
 - `useDirtyFormMarker` - Dirty form marker
+- `useDirtyFormScope` - Dirty form scope wrapper
 
-### Available Injection Keys
+### Available Types and Keys
 
-- `NavigationKey` - Navigation context
-- `MessagesKey` - Messages context
-- `OverlayKey` - Overlay context
-- `DirtyFormKey` - Dirty form context
-- `FormSubmissionStatusKey` - Form submission status
-- `FormWidgetChangeNotificationKey` - Form change notifications
+- `Navigation` - Navigation interface type
+- `Messages` - Messages interface type
+- `DirtyForm` - Dirty form interface type
+- `Timer` - Timer interface type
+- `NavigationKey` - Navigation injection key
+- `MessagesKey` - Messages injection key
+- `OverlayKey` - Overlay injection key
+- `DirtyFormKey` - Dirty form injection key
 
 ## Building for Production
 

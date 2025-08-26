@@ -1,9 +1,3 @@
-<template>
-  <div :key="navigationController.currentFrame.id">
-    <RenderFrame :config="config" :frame="navigationController.currentFrame" />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed, provide, inject } from "vue";
 import { NavigationController } from "../navigation";
@@ -70,3 +64,9 @@ const navigationUtils = computed(() => ({
 
 provide(NavigationKey, navigationUtils.value);
 </script>
+
+<template>
+  <div :key="navigationController.currentFrame.id">
+    <RenderFrame :config="config" :frame="navigationController.currentFrame" />
+  </div>
+</template>

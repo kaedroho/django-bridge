@@ -1,9 +1,3 @@
-<template>
-  <div v-if="!navigationController.isLoading">
-    <slot :content="browserContent" />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed, provide, inject, h } from "vue";
 import { DjangoBridgeResponse, Frame, Message } from "@common";
@@ -95,3 +89,9 @@ const browserContent = computed(() => {
   });
 });
 </script>
+
+<template>
+  <div v-if="!navigationController.isLoading">
+    <slot :content="browserContent" />
+  </div>
+</template>

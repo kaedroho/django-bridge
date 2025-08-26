@@ -1,9 +1,3 @@
-<template>
-  <div ref="containerRef">
-    <slot />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { useDirtyFormScope } from "../composables";
 
@@ -17,3 +11,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { containerRef } = useDirtyFormScope(props.handleBrowserUnload);
 </script>
+
+<template>
+  <div ref="containerRef">
+    <slot />
+  </div>
+</template>
