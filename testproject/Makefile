@@ -1,7 +1,8 @@
-.PHONY: setup rebuild migrate superuser start
+.PHONY: setup rebuild migrate superuser start-react start-vue
 
 setup: rebuild migrate ## Sets up development environment
-	docker compose run client npm install
+	FRAMEWORK=react docker compose run client npm install
+	FRAMEWORK=vue3 docker compose run client npm install
 
 rebuild: ## Rebuilds the docker containers
 	docker compose pull
@@ -13,5 +14,8 @@ migrate: ## Run Django migrations
 superuser: ## Create a superuser
 	docker compose run server django-admin createsuperuser
 
-start: ## Starts the docker containers
-	docker compose up
+start-react: ## Starts the docker containers
+	FRAMEWORK=react VITE_DEVSERVER_URL=http://localhost:5173/static docker compose up
+
+start-vue: ## Starts the docker containers
+	FRAMEWORK=vue3 VITE_DEVSERVER_URL=http://localhost:5174/static docker compose up

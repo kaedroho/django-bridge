@@ -10,6 +10,8 @@ services:
       DJANGO_SECRET_KEY: secret
       DJANGO_DEBUG: "true"
       DJANGO_ALLOWED_HOSTS: "*"
+      FRAMEWORK: ${FRAMEWORK}
+      VITE_DEVSERVER_URL: ${VITE_DEVSERVER_URL}
       DATABASE_URL: postgres://postgres@postgres/postgres
     ports:
       - 8000:8000
@@ -19,10 +21,10 @@ services:
       postgres:
         condition: service_healthy
 
-  client:
+  client_react:
     build:
       context: .
-      dockerfile: client/Dockerfile
+      dockerfile: client/react/Dockerfile
       target: dev
     init: true
     command: npm run dev -- --host
@@ -30,6 +32,18 @@ services:
       - ..:/code/
     ports:
       - 5173:5173
+
+  client_vue:
+    build:
+      context: .
+      dockerfile: client/vue/Dockerfile
+      target: dev
+    init: true
+    command: npm run dev -- --host
+    volumes:
+      - ..:/code/
+    ports:
+      - 5174:5173
 
   postgres:
     image: postgres:17
