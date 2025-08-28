@@ -106,6 +106,8 @@ Add the ``DJANGO_BRIDGE`` setting:
 
 ```python
 DJANGO_BRIDGE = {
+    "FRAMEWORK": "react",  # or "vue3"
+    "ENTRY_POINT": "src/main.tsx",
     "CONTEXT_PROVIDERS": {},
     "VITE_DEVSERVER_URL": "http://localhost:5173/static",
 }

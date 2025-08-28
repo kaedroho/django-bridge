@@ -37,8 +37,14 @@ class DjangoBridgeMiddleware:
         # If the response is a Django Bridge response, wrap it in our bootstrap template
         # to load the React SPA and render the response data.
         if isinstance(response, BaseResponse):
+            # Defaults set for backwards compatibility
+            FRAMEWORK = settings.DJANGO_BRIDGE.get("FRAMEWORK", "react")
+            ENTRY_POINT = settings.DJANGO_BRIDGE.get("ENTRY_POINT", "src/main.tsx")
             VITE_BUNDLE_DIR = settings.DJANGO_BRIDGE.get("VITE_BUNDLE_DIR")
             VITE_DEVSERVER_URL = settings.DJANGO_BRIDGE.get("VITE_DEVSERVER_URL")
+
+            vite_react_refresh_runtime = None
+
             if VITE_BUNDLE_DIR:
                 # Production - Use asset manifest to find URLs to bundled JS/CSS
                 asset_manifest = json.loads(
@@ -46,19 +52,19 @@ class DjangoBridgeMiddleware:
                 )
 
                 js = [
-                    static(asset_manifest["src/main.tsx"]["file"]),
+                    static(asset_manifest[ENTRY_POINT]["file"]),
                 ]
-                css = asset_manifest["src/main.tsx"].get("css", [])
-                vite_react_refresh_runtime = None
+                css = asset_manifest[ENTRY_POINT].get("css", [])
 
             elif VITE_DEVSERVER_URL:
                 # Development - Fetch JS/CSS from Vite server
                 js = [
-                    VITE_DEVSERVER_URL + "/@vite/client",
-                    VITE_DEVSERVER_URL + "/src/main.tsx",
+                    f"{VITE_DEVSERVER_URL}/@vite/client",
+                    f"{VITE_DEVSERVER_URL}/{ENTRY_POINT}",
                 ]
                 css = []
-                vite_react_refresh_runtime = VITE_DEVSERVER_URL + "/@react-refresh"
+                if FRAMEWORK == "react":
+                    vite_react_refresh_runtime = VITE_DEVSERVER_URL + "/@react-refresh"
 
             else:
                 raise ImproperlyConfigured(
