@@ -1,10 +1,10 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
-import { Context } from "react";
+import { Context, FunctionComponent } from "react";
 
 import { Config as CommonConfig } from "@common";
 
-export default class Config extends CommonConfig {
+export default class Config extends CommonConfig<FunctionComponent> {
   public contextProviders: Map<string, Context<unknown>>;
 
   constructor() {

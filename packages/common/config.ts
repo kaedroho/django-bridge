@@ -2,8 +2,8 @@
 
 import Telepath from "./telepathUnpack";
 
-export class Config {
-  public views: Map<string, any>;
+export class Config<V> {
+  public views: Map<string, V>;
 
   // Telepath Doesn't support typescript yet
   public telepathRegistry: Telepath;
@@ -16,7 +16,7 @@ export class Config {
     this.addAdapter("Date", Date);
   }
 
-  public addView = <P>(name: string, component: any): Config => {
+  public addView = <P>(name: string, component: V): Config<V> => {
     this.views.set(name, component);
     return this;
   };
@@ -24,7 +24,7 @@ export class Config {
   public addAdapter = <Cls>(
     name: string,
     ctor: { new (...args: any[]): Cls }
-  ): Config => {
+  ): Config<V> => {
     this.telepathRegistry.register(name, ctor);
     return this;
   };
