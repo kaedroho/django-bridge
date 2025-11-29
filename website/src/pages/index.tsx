@@ -19,7 +19,7 @@ function HomepageHeader() {
           <span className={styles.visuallyhidden}>Django Bridge</span>
         </Heading>
         <p className={styles.heroSubtitle}>
-          Build modern web application with <b>Django</b> and{" "}
+          Build modern web applications with <b>Django</b> and{" "}
           <b style={{ whiteSpace: "nowrap" }}>
             <ReactLogo
               style={{
