@@ -116,8 +116,8 @@ def form(request):
     );
   }`}</CodeBlock>
           <p>
-            Unopinionated about how you build your frontend, you can use
-            any React component library or styling framework that you like.
+            Unopinionated about how you build your frontend, you can use any
+            React component library or styling framework that you like.
           </p>
         </section>
       </main>
