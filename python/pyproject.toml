@@ -12,7 +12,7 @@ license-files = ["LICENSE"]
 authors = [
   { name = "Karl Hobley", email = "karl@kaed.uk" },
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
@@ -24,9 +24,10 @@ classifiers = [
   "Framework :: Django",
   "Framework :: Django :: 4.0",
   "Framework :: Django :: 5.0",
+  "Framework :: Django :: 6.0",
 ]
 dependencies = [
-  "Django>=4.0,<6.0",
+  "Django>=4.0,<7.0",
   "telepath>=0.3,<0.4",
 ]
 

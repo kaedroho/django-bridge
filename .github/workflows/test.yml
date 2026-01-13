@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ["3.11", "3.12", "3.13"]
-        django: ["4.2", "5.0", "5.1", "5.2"]
+        python: ["3.12", "3.13", "3.14"]
+        django: ["5.2", "6.0"]
 
     steps:
       - uses: actions/checkout@v2
