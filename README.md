@@ -17,7 +17,7 @@
     <a href="https://pypi.python.org/pypi/django-bridge/">
         <img src="https://img.shields.io/pypi/v/django-bridge.svg" alt="Version" />
     </a>
-    <a href="https://pypi.python.org/pypi/django-bridge/">
+    <a href="https://django-bridge.org/docs/introduction/">
         <img src="https://img.shields.io/badge/Documentation-blue" alt="Documentation" />
     </a>
 </p>
