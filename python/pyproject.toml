@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=78.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-bridge"
+dynamic = ["version"]
+description = "Build modern web applications with Django and React."
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Karl Hobley", email = "karl@kaed.uk" },
+]
+requires-python = ">=3.10"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Framework :: Django",
+  "Framework :: Django :: 4.0",
+  "Framework :: Django :: 5.0",
+]
+dependencies = [
+  "Django>=4.0,<6.0",
+  "telepath>=0.3,<0.4",
+]
+
+[project.urls]
+Homepage = "https://django-bridge.org/"
+Documentation = "https://django-bridge.org/docs/"
+Repository = "https://github.com/django-bridge/django-bridge/"
+Changelog = "https://github.com/kaedroho/django-bridge/releases"
+"Issue Tracker" = "https://github.com/django-bridge/django-bridge/issues"
+
+[tool.setuptools.packages.find]
+include = ["django_bridge*"]
+
+[tool.setuptools.package-data]
+# https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+
+"django_bridge" = ["**/*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "django_bridge.__version__" }
