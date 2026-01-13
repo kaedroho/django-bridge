@@ -24,6 +24,7 @@ classifiers = [
   "Framework :: Django",
   "Framework :: Django :: 4.0",
   "Framework :: Django :: 5.0",
+  "Framework :: Django :: 6.0",
 ]
 dependencies = [
   "Django>=4.0,<6.0",
