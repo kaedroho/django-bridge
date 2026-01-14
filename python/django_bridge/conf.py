@@ -21,14 +21,7 @@ class DjangoBridgeConfig:
         self.vite_bundle_dir = Path(vite_bundle_dir) if vite_bundle_dir else None
         self.vite_devserver_url = vite_devserver_url
         self.bootstrap_template = bootstrap_template
-        self.context_providers = (
-            {
-                name: import_string(provider)
-                for name, provider in context_providers.items()
-            }
-            if context_providers
-            else {}
-        )
+        self.context_providers = context_providers or {}
 
     @classmethod
     def from_settings(cls):
@@ -37,7 +30,14 @@ class DjangoBridgeConfig:
             entry_point=settings.DJANGO_BRIDGE.get("ENTRY_POINT", "src/main.tsx"),
             vite_bundle_dir=settings.DJANGO_BRIDGE.get("VITE_BUNDLE_DIR"),
             vite_devserver_url=settings.DJANGO_BRIDGE.get("VITE_DEVSERVER_URL"),
-            context_providers=settings.DJANGO_BRIDGE.get("CONTEXT_PROVIDERS", {}),
+            context_providers=(
+                {
+                    name: import_string(provider)
+                    for name, provider in settings.DJANGO_BRIDGE.get(
+                        "CONTEXT_PROVIDERS", {}
+                    ).items()
+                }
+            ),
         )
 
         if not config.vite_bundle_dir and not config.vite_devserver_url:
