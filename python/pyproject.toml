@@ -12,7 +12,7 @@ license-files = ["LICENSE"]
 authors = [
   { name = "Karl Hobley", email = "karl@kaed.uk" },
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
