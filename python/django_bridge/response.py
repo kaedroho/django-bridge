@@ -1,12 +1,12 @@
 import warnings
-from django.conf import settings
+
 from django.contrib import messages
 from django.http import JsonResponse
 from django.utils.cache import patch_cache_control
 from django.utils.html import conditional_escape
-from django.utils.module_loading import import_string
 
 from .adapters.registry import JSContext
+from .conf import config
 from .metadata import Metadata
 
 
@@ -62,7 +62,7 @@ class Response(BaseResponse):
         *,
         overlay=False,
         title="",
-        metadata: Metadata = None,
+        metadata: Metadata | None = None,
         status=None,
     ):
         if metadata is None:
@@ -81,10 +81,8 @@ class Response(BaseResponse):
         self.overlay = overlay
         self.metadata = metadata
         self.context = {
-            name: import_string(provider)(request)
-            for name, provider in settings.DJANGO_BRIDGE.get(
-                "CONTEXT_PROVIDERS", {}
-            ).items()
+            name: provider(request)
+            for name, provider in config.context_providers.items()
         }
         self.messages = get_messages(request)
         super().__init__(

@@ -1,12 +1,11 @@
 import json
-from pathlib import Path
 
-from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from django.templatetags.static import static
 
+from .conf import config
 from .response import BaseResponse, RedirectResponse
 
 
@@ -37,34 +36,30 @@ class DjangoBridgeMiddleware:
         # If the response is a Django Bridge response, wrap it in our bootstrap template
         # to load the React SPA and render the response data.
         if isinstance(response, BaseResponse):
-            # Defaults set for backwards compatibility
-            FRAMEWORK = settings.DJANGO_BRIDGE.get("FRAMEWORK", "react")
-            ENTRY_POINT = settings.DJANGO_BRIDGE.get("ENTRY_POINT", "src/main.tsx")
-            VITE_BUNDLE_DIR = settings.DJANGO_BRIDGE.get("VITE_BUNDLE_DIR")
-            VITE_DEVSERVER_URL = settings.DJANGO_BRIDGE.get("VITE_DEVSERVER_URL")
-
             vite_react_refresh_runtime = None
 
-            if VITE_BUNDLE_DIR:
+            if config.vite_bundle_dir:
                 # Production - Use asset manifest to find URLs to bundled JS/CSS
                 asset_manifest = json.loads(
-                    (Path(VITE_BUNDLE_DIR) / ".vite/manifest.json").read_text()
+                    (config.vite_bundle_dir / ".vite/manifest.json").read_text()
                 )
 
                 js = [
-                    static(asset_manifest[ENTRY_POINT]["file"]),
+                    static(asset_manifest[config.entry_point]["file"]),
                 ]
-                css = asset_manifest[ENTRY_POINT].get("css", [])
+                css = asset_manifest[config.entry_point].get("css", [])
 
-            elif VITE_DEVSERVER_URL:
+            elif config.vite_devserver_url:
                 # Development - Fetch JS/CSS from Vite server
                 js = [
-                    f"{VITE_DEVSERVER_URL}/@vite/client",
-                    f"{VITE_DEVSERVER_URL}/{ENTRY_POINT}",
+                    f"{config.vite_devserver_url}/@vite/client",
+                    f"{config.vite_devserver_url}/{config.entry_point}",
                 ]
                 css = []
-                if FRAMEWORK == "react":
-                    vite_react_refresh_runtime = VITE_DEVSERVER_URL + "/@react-refresh"
+                if config.framework == "react":
+                    vite_react_refresh_runtime = (
+                        config.vite_devserver_url + "/@react-refresh"
+                    )
 
             else:
                 raise ImproperlyConfigured(
