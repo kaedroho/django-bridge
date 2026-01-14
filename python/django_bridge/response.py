@@ -3,14 +3,14 @@ import warnings
 
 from django.contrib import messages
 from django.core.exceptions import ImproperlyConfigured
-from django.http import JsonResponse, StreamingHttpResponse
+from django.http import HttpResponse, JsonResponse, StreamingHttpResponse
 from django.shortcuts import render
 from django.templatetags.static import static
 from django.utils.cache import patch_cache_control
 from django.utils.html import conditional_escape
 
 from .adapters.registry import JSContext
-from .conf import config
+from .conf import config as default_config
 from .metadata import Metadata
 
 
@@ -25,21 +25,35 @@ def get_messages(request):
     ]
 
 
-class BaseResponse(JsonResponse):
+class BaseResponse(HttpResponse):
     """
     Base class for all Django Bridge responses.
+
+    Inherits from HttpResponse so middleware and decorators can attach cookies.
+    The content is empty as process_response will convert this to either a
+    JsonResponse or HTML response.
     """
 
     action = None
 
     def __init__(self, data, *, status=None):
-        js_context = JSContext()
+        super().__init__(status=status)
         self.data = {
             "action": self.action,
             **data,
         }
-        super().__init__(js_context.pack(self.data), status=status)
-        self["X-DjangoBridge-Action"] = self.action
+
+    def get_response_data(self, config):
+        """
+        Returns response data adapted and ready for JSON serialization.
+        """
+        js_context = JSContext()
+        return js_context.pack(self.data)
+
+    def as_jsonresponse(self, config):
+        response = JsonResponse(self.get_response_data(config), status=self.status_code)
+        response["X-DjangoBridge-Action"] = self.action
+        response.cookies = self.cookies
 
         # Make sure that Django Bridge responses are never cached by browsers
         # We need to do this because Django Bridge responses are given on the same URLs that
@@ -48,7 +62,9 @@ class BaseResponse(JsonResponse):
         # If a Django Bridge response is cached, there's a chance that a user could see the
         # JSON document in their browser rather than a HTML page.
         # This behaviour only seems to occur (intermittently) on Firefox.
-        patch_cache_control(self, no_store=True)
+        patch_cache_control(response, no_store=True)
+
+        return response
 
 
 class Response(BaseResponse):
@@ -80,25 +96,30 @@ class Response(BaseResponse):
         elif title:
             raise TypeError("title and metadata cannot both be provided")
 
+        super().__init__({}, status=status)
+        self._request = request
         self.view = view
         self.props = props
         self.overlay = overlay
         self.metadata = metadata
-        self.context = {
-            name: provider(request)
+        self.messages = get_messages(request)
+
+    def get_response_data(self, config):
+        context = {
+            name: provider(self._request)
             for name, provider in config.context_providers.items()
         }
-        self.messages = get_messages(request)
-        super().__init__(
+        js_context = JSContext()
+        return js_context.pack(
             {
+                "action": self.action,
                 "view": self.view,
                 "overlay": self.overlay,
                 "metadata": self.metadata,
                 "props": self.props,
-                "context": self.context,
+                "context": context,
                 "messages": self.messages,
-            },
-            status=status,
+            }
         )
 
 
@@ -137,12 +158,32 @@ class CloseOverlayResponse(BaseResponse):
         )
 
 
-def process_response(request, response):
+def process_response(request, response, config=None):
+    if config is None:
+        config = default_config
+
     if isinstance(response, StreamingHttpResponse):
         return response
 
     if response.status_code == 301:
         return response
+
+    if isinstance(response, BaseResponse):
+        # If the request was made by Django Bridge
+        # (using `fetch()`, rather than a regular browser request)
+        if request.META.get("HTTP_X_REQUESTED_WITH") == "DjangoBridge":
+            return response.as_jsonresponse(config)
+
+        # Regular browser request
+        # Wrap the response in our bootstrap template to load the React SPA
+        # and render the response data.
+        return _render_html(
+            request,
+            response.get_response_data(config),
+            response.status_code,
+            config,
+            response.cookies,
+        )
 
     # If the request was made by Django Bridge
     # (using `fetch()`, rather than a regular browser request)
@@ -150,62 +191,57 @@ def process_response(request, response):
         # Convert redirect responses to a JSON response with a `redirect` status
         # This allows the client code to handle the redirect
         if response.status_code == 302:
-            return RedirectResponse(response["Location"])
-
-        return response
-
-    # Regular browser request
-    # If the response is a Django Bridge response, wrap it in our bootstrap template
-    # to load the React SPA and render the response data.
-    if isinstance(response, BaseResponse):
-        vite_react_refresh_runtime = None
-
-        if config.vite_bundle_dir:
-            # Production - Use asset manifest to find URLs to bundled JS/CSS
-            asset_manifest = json.loads(
-                (config.vite_bundle_dir / ".vite/manifest.json").read_text()
-            )
-
-            js = [
-                static(asset_manifest[config.entry_point]["file"]),
-            ]
-            css = asset_manifest[config.entry_point].get("css", [])
-
-        elif config.vite_devserver_url:
-            # Development - Fetch JS/CSS from Vite server
-            js = [
-                f"{config.vite_devserver_url}/@vite/client",
-                f"{config.vite_devserver_url}/{config.entry_point}",
-            ]
-            css = []
-            if config.framework == "react":
-                vite_react_refresh_runtime = (
-                    config.vite_devserver_url + "/@react-refresh"
-                )
-
-        else:
-            raise ImproperlyConfigured(
-                "DJANGO_BRIDGE['VITE_BUNDLE_DIR'] (production) or DJANGO_BRIDGE['VITE_DEVSERVER_URL'] (development) must be set"
-            )
-
-        # Wrap the response with our bootstrap template
-        initial_response = json.loads(response.content.decode("utf-8"))
-        new_response = render(
-            request,
-            "django_bridge/bootstrap.html",
-            {
-                "metadata": initial_response.get("metadata"),
-                "initial_response": json.loads(response.content.decode("utf-8")),
-                "js": js,
-                "css": css,
-                "vite_react_refresh_runtime": vite_react_refresh_runtime,
-            },
-        )
-
-        # Copy status_code and cookies from the original response
-        new_response.status_code = response.status_code
-        new_response.cookies = response.cookies
-
-        return new_response
+            return RedirectResponse(response["Location"]).as_jsonresponse(config)
 
     return response
+
+
+def _render_html(request, response_data, status_code, config, cookies=None):
+    """
+    Wrap response data in our bootstrap template to load the frontend bundle.
+    """
+    vite_react_refresh_runtime = None
+
+    if config.vite_bundle_dir:
+        # Production - Use asset manifest to find URLs to bundled JS/CSS
+        asset_manifest = json.loads(
+            (config.vite_bundle_dir / ".vite/manifest.json").read_text()
+        )
+
+        js = [
+            static(asset_manifest[config.entry_point]["file"]),
+        ]
+        css = asset_manifest[config.entry_point].get("css", [])
+
+    elif config.vite_devserver_url:
+        # Development - Fetch JS/CSS from Vite server
+        js = [
+            f"{config.vite_devserver_url}/@vite/client",
+            f"{config.vite_devserver_url}/{config.entry_point}",
+        ]
+        css = []
+        if config.framework == "react":
+            vite_react_refresh_runtime = config.vite_devserver_url + "/@react-refresh"
+
+    else:
+        raise ImproperlyConfigured(
+            "DJANGO_BRIDGE['VITE_BUNDLE_DIR'] (production) or DJANGO_BRIDGE['VITE_DEVSERVER_URL'] (development) must be set"
+        )
+
+    new_response = render(
+        request,
+        config.bootstrap_template,
+        {
+            "metadata": response_data.get("metadata"),
+            "initial_response": response_data,
+            "js": js,
+            "css": css,
+            "vite_react_refresh_runtime": vite_react_refresh_runtime,
+        },
+    )
+
+    new_response.status_code = status_code
+    if cookies:
+        new_response.cookies = cookies
+
+    return new_response
