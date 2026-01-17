@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode } from "react";
+import { ShouldReloadCallback } from "@common";
 import { DirtyFormContext } from "../dirtyform";
 
 import { NavigationController } from "../navigation";
@@ -60,6 +61,9 @@ function Browser({
       openOverlay,
       refreshProps,
       isNavigating,
+      setShouldReloadCallback: (callback: ShouldReloadCallback) => {
+        currentFrame.shouldReloadCallback = callback;
+      },
     }),
     [
       currentFrame,

@@ -5,5 +5,5 @@ export {
   djangoGet,
   type DjangoBridgeResponse,
 } from "./fetch";
-export { type Frame } from "./frame";
+export { type ShouldReloadCallback, type Frame } from "./frame";
 export { type Metadata } from "./metadata";
