@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback, useContext, useEffect } from "react";
+import { ShouldReloadCallback } from "@common";
 import { NavigationContext } from "./contexts";
 
 export type Timer = ReturnType<typeof setTimeout>;
@@ -30,4 +31,10 @@ export function useAutoRefresh(enabled: boolean, interval: number) {
       }
     };
   }, [enabled, interval, refreshProps]);
+}
+
+export function useShouldReloadCallback(callback: ShouldReloadCallback, deps: React.DependencyList) {
+    const memoisedCallback = useCallback(callback, deps)
+    const { setShouldReloadCallback } = useContext(NavigationContext);
+    useEffect(() => setShouldReloadCallback(memoisedCallback), [memoisedCallback]);
 }

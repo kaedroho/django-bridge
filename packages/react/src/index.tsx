@@ -225,7 +225,7 @@ export {
 export type { Navigation } from "./contexts";
 export { DirtyFormContext, DirtyFormMarker } from "./dirtyform";
 export type { DirtyForm } from "./dirtyform";
-export { useAutoRefresh } from "./hooks";
+export { useAutoRefresh, useShouldReloadCallback } from "./hooks";
 export { type NavigationController } from "./navigation";
 export type { Frame, Message, DjangoBridgeResponse as Response, Metadata };
 export { Link, BuildLinkElement, buildLinkElement };
