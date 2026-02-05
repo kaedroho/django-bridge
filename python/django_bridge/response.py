@@ -122,6 +122,59 @@ class Response(BaseResponse):
             }
         )
 
+    def as_htmlresponse(self, config):
+        """
+        Wrap response data in our bootstrap template to load the frontend bundle.
+        """
+        vite_react_refresh_runtime = None
+
+        if config.vite_bundle_dir:
+            # Production - Use asset manifest to find URLs to bundled JS/CSS
+            asset_manifest = json.loads(
+                (config.vite_bundle_dir / ".vite/manifest.json").read_text()
+            )
+
+            js = [
+                static(asset_manifest[config.entry_point]["file"]),
+            ]
+            css = asset_manifest[config.entry_point].get("css", [])
+
+        elif config.vite_devserver_url:
+            # Development - Fetch JS/CSS from Vite server
+            js = [
+                f"{config.vite_devserver_url}/@vite/client",
+                f"{config.vite_devserver_url}/{config.entry_point}",
+            ]
+            css = []
+            if config.framework == "react":
+                vite_react_refresh_runtime = (
+                    config.vite_devserver_url + "/@react-refresh"
+                )
+
+        else:
+            raise ImproperlyConfigured(
+                "DJANGO_BRIDGE['VITE_BUNDLE_DIR'] (production) or DJANGO_BRIDGE['VITE_DEVSERVER_URL'] (development) must be set"
+            )
+
+        response_data = self.get_response_data(config)
+        response = render(
+            self._request,
+            config.bootstrap_template,
+            {
+                "metadata": response_data.get("metadata"),
+                "initial_response": response_data,
+                "js": js,
+                "css": css,
+                "vite_react_refresh_runtime": vite_react_refresh_runtime,
+            },
+        )
+
+        response.status_code = self.status_code
+        if self.cookies:
+            response.cookies = self.cookies
+
+        return response
+
 
 class ReloadResponse(BaseResponse):
     """
@@ -185,63 +238,6 @@ def process_response(request, response, config=None):
         # Regular browser request
         # Wrap the response in our bootstrap template to load the React SPA
         # and render the response data.
-        return _render_html(
-            request,
-            response.get_response_data(config),
-            response.status_code,
-            config,
-            response.cookies,
-        )
+        return response.as_htmlresponse(config)
 
     return response
-
-
-def _render_html(request, response_data, status_code, config, cookies=None):
-    """
-    Wrap response data in our bootstrap template to load the frontend bundle.
-    """
-    vite_react_refresh_runtime = None
-
-    if config.vite_bundle_dir:
-        # Production - Use asset manifest to find URLs to bundled JS/CSS
-        asset_manifest = json.loads(
-            (config.vite_bundle_dir / ".vite/manifest.json").read_text()
-        )
-
-        js = [
-            static(asset_manifest[config.entry_point]["file"]),
-        ]
-        css = asset_manifest[config.entry_point].get("css", [])
-
-    elif config.vite_devserver_url:
-        # Development - Fetch JS/CSS from Vite server
-        js = [
-            f"{config.vite_devserver_url}/@vite/client",
-            f"{config.vite_devserver_url}/{config.entry_point}",
-        ]
-        css = []
-        if config.framework == "react":
-            vite_react_refresh_runtime = config.vite_devserver_url + "/@react-refresh"
-
-    else:
-        raise ImproperlyConfigured(
-            "DJANGO_BRIDGE['VITE_BUNDLE_DIR'] (production) or DJANGO_BRIDGE['VITE_DEVSERVER_URL'] (development) must be set"
-        )
-
-    new_response = render(
-        request,
-        config.bootstrap_template,
-        {
-            "metadata": response_data.get("metadata"),
-            "initial_response": response_data,
-            "js": js,
-            "css": css,
-            "vite_react_refresh_runtime": vite_react_refresh_runtime,
-        },
-    )
-
-    new_response.status_code = status_code
-    if cookies:
-        new_response.cookies = cookies
-
-    return new_response
