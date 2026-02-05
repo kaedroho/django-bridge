@@ -4,6 +4,8 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 
+from .adapters.registry import JSContext
+
 
 class DjangoBridgeConfig:
     def __init__(
@@ -46,6 +48,11 @@ class DjangoBridgeConfig:
             )
 
         return config
+
+    def pack(self, data):
+        # TODO: Provide a way for adapters to be registered against this class
+        js_context = JSContext()
+        return js_context.pack(data)
 
 
 config = DjangoBridgeConfig.from_settings()
