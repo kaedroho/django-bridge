@@ -1,9 +1,9 @@
-import React, { ReactElement } from "react";
+import React, { FunctionComponent, ReactElement } from "react";
 
 import { Config, Frame } from "@common";
 
 export interface RenderFrameProps {
-  config: Config;
+  config: Config<FunctionComponent>;
   frame: Frame;
 }
 

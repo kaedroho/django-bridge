@@ -71,6 +71,7 @@ export function OverrideLinks({
       openOverlay: navigate,
       refreshProps: () => Promise.resolve(),
       isNavigating: false,
+      setShouldReloadCallback: () => {},
     }),
     []
   );
