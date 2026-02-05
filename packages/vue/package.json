@@ -1,6 +1,6 @@
 {
   "name": "@django-bridge/vue",
-  "version": "0.5.0",
+  "version": "0.6.0-rc.1",
   "description": "The simple way to build Django applications with modern Vue frontends",
   "repository": "https://github.com/django-bridge/django-bridge",
   "license": "BSD-3-Clause",
