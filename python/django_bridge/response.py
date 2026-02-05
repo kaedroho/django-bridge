@@ -168,6 +168,14 @@ def process_response(request, response, config=None):
     if response.status_code == 301:
         return response
 
+    # If the request was made by Django Bridge
+    # (using `fetch()`, rather than a regular browser request)
+    if request.META.get("HTTP_X_REQUESTED_WITH") == "DjangoBridge":
+        # Convert redirect responses to a RedirectResponse
+        # This allows the client code to handle the redirect
+        if response.status_code == 302:
+            response = RedirectResponse(response["Location"])
+
     if isinstance(response, BaseResponse):
         # If the request was made by Django Bridge
         # (using `fetch()`, rather than a regular browser request)
@@ -184,14 +192,6 @@ def process_response(request, response, config=None):
             config,
             response.cookies,
         )
-
-    # If the request was made by Django Bridge
-    # (using `fetch()`, rather than a regular browser request)
-    if request.META.get("HTTP_X_REQUESTED_WITH") == "DjangoBridge":
-        # Convert redirect responses to a JSON response with a `redirect` status
-        # This allows the client code to handle the redirect
-        if response.status_code == 302:
-            return RedirectResponse(response["Location"]).as_jsonresponse(config)
 
     return response
 
