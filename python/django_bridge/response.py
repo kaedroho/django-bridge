@@ -9,7 +9,6 @@ from django.templatetags.static import static
 from django.utils.cache import patch_cache_control
 from django.utils.html import conditional_escape
 
-from .adapters.registry import JSContext
 from .conf import config as default_config
 from .metadata import Metadata
 
@@ -47,8 +46,7 @@ class BaseResponse(HttpResponse):
         """
         Returns response data adapted and ready for JSON serialization.
         """
-        js_context = JSContext()
-        return js_context.pack(self.data)
+        return config.pack(self.data)
 
     def as_jsonresponse(self, config):
         response = JsonResponse(self.get_response_data(config), status=self.status_code)
@@ -109,8 +107,7 @@ class Response(BaseResponse):
             name: provider(self._request)
             for name, provider in config.context_providers.items()
         }
-        js_context = JSContext()
-        return js_context.pack(
+        return config.pack(
             {
                 "action": self.action,
                 "view": self.view,
