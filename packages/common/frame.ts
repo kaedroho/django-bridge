@@ -1,5 +1,10 @@
 import { Metadata } from "./metadata";
 
+export type ShouldReloadCallback = (
+  newPath: string,
+  newProps: Record<string, unknown>
+) => boolean;
+
 export interface Frame<Props = Record<string, unknown>> {
   id: number;
   path: string;
@@ -7,5 +12,5 @@ export interface Frame<Props = Record<string, unknown>> {
   view: string;
   props: Props;
   context: Record<string, unknown>;
-  shouldReloadCallback?: (newPath: string, newProps: Props) => boolean;
+  shouldReloadCallback?: ShouldReloadCallback;
 }

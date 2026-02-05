@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Message } from "@common";
+import { Message, ShouldReloadCallback } from "@common";
 
 export interface NavigateOptions {
   pushState?: boolean;
@@ -49,6 +49,7 @@ export interface Navigation {
   ) => void;
   refreshProps: () => Promise<void>;
   isNavigating: boolean;
+  setShouldReloadCallback: (callback: ShouldReloadCallback) => void;
 }
 
 export const NavigationContext = React.createContext<Navigation>({
@@ -85,6 +86,7 @@ export const NavigationContext = React.createContext<Navigation>({
     return Promise.resolve();
   },
   isNavigating: false,
+  setShouldReloadCallback: () => {},
 });
 
 // This context is used to allow form widgets to notify their forms that data has changed
