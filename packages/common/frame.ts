@@ -7,6 +7,7 @@ export type ShouldReloadCallback = (
 
 export interface Frame<Props = Record<string, unknown>> {
   id: number;
+  originalId: number;
   path: string;
   metadata: Metadata;
   view: string;

@@ -24,7 +24,7 @@ function RenderFrame({ config, frame }: RenderFrameProps): ReactElement {
   });
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <div key={frame.id}>{view}</div>;
+  return <div key={frame.originalId}>{view}</div>;
 }
 
 export default RenderFrame;
