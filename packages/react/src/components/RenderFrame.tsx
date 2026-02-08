@@ -18,9 +18,13 @@ function RenderFrame({ config, frame }: RenderFrameProps): ReactElement {
   // Render the view and wrap it with each configured global context provider
   let view = <View {...frame.props} />;
   config.contextProviders.forEach((provider, name) => {
-    view = (
-      <provider.Provider value={frame.context[name]}>{view}</provider.Provider>
-    );
+    if (name in frame.context) {
+      view = (
+        <provider.Provider value={frame.context[name]}>
+          {view}
+        </provider.Provider>
+      );
+    }
   });
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
