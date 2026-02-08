@@ -51,9 +51,9 @@ export function useNavigationController(
     onServerError?: (kind: "server" | "network") => void;
   } = {}
 ): NavigationController {
-  nextFrameId += 1;
   const [currentFrame, setCurrentFrame] = useState<Frame>({
     id: nextFrameId,
+    originalId: nextFrameId,
     path: initialPath,
     metadata: {
       title: "Loading",
@@ -75,12 +75,15 @@ export function useNavigationController(
       pushState = true,
       reload = true
     ) => {
-      let frameId = currentFrame.id;
+      nextFrameId += 1;
+      const frameId = nextFrameId;
 
+      // Update originalFrameId
+      // Changing this will trigger the view to be reloaded (wiping any state)
+      let originalFrameId = currentFrame.originalId;
       const newFrame = view !== currentFrame.view || reload;
       if (newFrame) {
-        nextFrameId += 1;
-        frameId = nextFrameId;
+        originalFrameId = frameId;
       }
 
       if (!parent) {
@@ -112,6 +115,7 @@ export function useNavigationController(
 
       const nextFrame = {
         id: frameId,
+        originalId: originalFrameId,
         path,
         metadata,
         view,
@@ -124,7 +128,7 @@ export function useNavigationController(
         callbacks.onNavigation(nextFrame, newFrame, messages);
       }
     },
-    [callbacks, currentFrame.id, currentFrame.view, parent]
+    [callbacks, currentFrame.originalId, currentFrame.view, parent]
   );
 
   const [redirectTo, setRedirectTo] = useState<null | string>(null);

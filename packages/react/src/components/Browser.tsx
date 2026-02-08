@@ -40,6 +40,7 @@ function Browser({
 
   const NavigationUtils = React.useMemo(
     () => ({
+      originalFrameId: currentFrame.originalId,
       frameId: currentFrame.id,
       path: currentFrame.path,
       props: currentFrame.props,
@@ -82,9 +83,7 @@ function Browser({
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return (
     <NavigationContext.Provider value={NavigationUtils}>
-      <div key={currentFrame.id}>
-        <RenderFrame config={config} frame={currentFrame} />
-      </div>
+      <RenderFrame config={config} frame={currentFrame} />
     </NavigationContext.Provider>
   );
 }

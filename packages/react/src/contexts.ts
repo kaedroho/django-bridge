@@ -36,6 +36,7 @@ export const OverlayContext = React.createContext<OverlayContextType>({
 
 export interface Navigation {
   frameId: number;
+  originalFrameId: number;
   path: string;
   props: Record<string, unknown>;
   context: Record<string, unknown>;
@@ -54,6 +55,7 @@ export interface Navigation {
 
 export const NavigationContext = React.createContext<Navigation>({
   frameId: 0,
+  originalFrameId: 0,
   path: "/",
   props: {},
   context: {},
