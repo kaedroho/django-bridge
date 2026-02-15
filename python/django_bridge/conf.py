@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 
-from .adapters.registry import JSContext
+from .adapters.registry import registry
 
 
 class DjangoBridgeConfig:
@@ -17,6 +17,7 @@ class DjangoBridgeConfig:
         vite_devserver_url=None,
         bootstrap_template="django_bridge/bootstrap.html",
         context_providers=None,
+        adapter_registry=registry
     ):
         self.framework = framework
         self.entry_point = entry_point
@@ -24,6 +25,7 @@ class DjangoBridgeConfig:
         self.vite_devserver_url = vite_devserver_url
         self.bootstrap_template = bootstrap_template
         self.context_providers = context_providers or {}
+        self.adapter_registry = adapter_registry
 
     @classmethod
     def from_settings(cls):
@@ -50,6 +52,5 @@ class DjangoBridgeConfig:
         return config
 
     def pack(self, data):
-        # TODO: Provide a way for adapters to be registered against this class
-        js_context = JSContext()
+        js_context = self.adapter_registry.js_context_class()
         return js_context.pack(data)
