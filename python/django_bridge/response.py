@@ -9,7 +9,7 @@ from django.templatetags.static import static
 from django.utils.cache import patch_cache_control
 from django.utils.html import conditional_escape
 
-from .conf import config as default_config
+from .conf import DjangoBridgeConfig
 from .metadata import Metadata
 
 
@@ -210,7 +210,7 @@ class CloseOverlayResponse(BaseResponse):
 
 def process_response(request, response, config=None):
     if config is None:
-        config = default_config
+        config = DjangoBridgeConfig.from_settings()
 
     if isinstance(response, StreamingHttpResponse):
         return response
