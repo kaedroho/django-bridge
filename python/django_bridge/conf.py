@@ -53,6 +53,3 @@ class DjangoBridgeConfig:
         # TODO: Provide a way for adapters to be registered against this class
         js_context = JSContext()
         return js_context.pack(data)
-
-
-config = DjangoBridgeConfig.from_settings()
