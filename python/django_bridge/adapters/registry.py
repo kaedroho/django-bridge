@@ -16,7 +16,6 @@ class CustomAdapterRegistry(AdapterRegistry):
 
 
 registry = CustomAdapterRegistry()
-JSContext = registry.js_context_class
 
 
 def register(adapter, cls):
