@@ -1,6 +1,6 @@
 {
   "name": "@django-bridge/next",
-  "version": "0.6.0-rc.1",
+  "version": "0.6.0",
   "description": "The simple way to build Django applications with modern Next.js frontends",
   "repository": "https://github.com/django-bridge/django-bridge",
   "license": "BSD-3-Clause",
