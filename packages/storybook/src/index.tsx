@@ -61,6 +61,7 @@ export function OverrideLinks({
 
   const navigation: Navigation = React.useMemo(
     () => ({
+      originalFrameId: 0,
       frameId: 0,
       path: "/",
       props: {},
