@@ -36,20 +36,20 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - Getting Started: getting-started/start.md
+  - How it works: getting-started/how-it-works.md
+  - Getting Started: getting-started/start.md
   - Guide:
-    - Writing Views: guide/views.md
-    - Writing View Components: guide/view_components.md
-    - Navigation: guide/navigation.md
-    - Global Context: guide/global_context.md
-    - Forms: guide/forms.md
-    - Messages: guide/messages.md
-    - Overlays: guide/overlays.md
-    - Python objects in React: guide/python2react.md
-    - Testing: guide/testing.md
-    - Storybook: guide/storybook.md
-    - Contributing: guide/contributing.md
+      - Writing Views: guide/views.md
+      - Writing View Components: guide/view_components.md
+      - Navigation: guide/navigation.md
+      - Global Context: guide/global_context.md
+      - Forms: guide/forms.md
+      - Messages: guide/messages.md
+      - Overlays: guide/overlays.md
+      - Python objects in React: guide/python2react.md
+      - Testing: guide/testing.md
+      - Storybook: guide/storybook.md
+      - Contributing: guide/contributing.md
 
 extra:
   social:
