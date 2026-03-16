@@ -1,7 +1,3 @@
----
-sidebar_position: 9
----
-
 # Overlays and modals
 
 **WORK IN PROGRESS: This is just a stub for now**

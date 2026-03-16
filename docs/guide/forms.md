@@ -1,19 +1,15 @@
----
-sidebar_position: 7
----
-
 # Forms
 
-Django Bridge applications can use Django’s built-in forms framework for creating forms and implementing application logic and validation.
+Django Bridge applications can use Django's built-in forms framework for creating forms and implementing application logic and validation.
 
 ## How they work
 
-Forms are defined in Python using Django’s built-in form, field and widget types.
+Forms are defined in Python using Django's built-in form, field and widget types.
 These definitions are serialised into JSON using [Telepath](https://wagtail.github.io/telepath/) and then rendered with React.
 
-When a user submits a form, it’s submitted in the standard encodings that Django is already built to accept, so all the backend code works as if it’s a regular old Django app, no separate APIs are needed.
+When a user submits a form, it's submitted in the standard encodings that Django is already built to accept, so all the backend code works as if it's a regular old Django app, no separate APIs are needed.
 
-Validation is all performed by Django and the logic doesn’t have to be repeated in JavaScript. When a validation error occurs, the view and form are re-rendered with the validation errors rendered in the form.
+Validation is all performed by Django and the logic doesn't have to be repeated in JavaScript. When a validation error occurs, the view and form are re-rendered with the validation errors rendered in the form.
 
 ## Building a form with Django Bridge
 
@@ -60,7 +56,7 @@ def get_name(request):
 ```
 
 Note that this view is almost exactly the same as what you would implement for a [regular Django application](https://docs.djangoproject.com/en/5.0/topics/forms/#the-view).
-The only difference is the last line has changed from using Django’s ``render()`` shortcut which renders a template to using Django Bridge’s ``Response`` class.
+The only difference is the last line has changed from using Django's ``render()`` shortcut which renders a template to using Django Bridge's ``Response`` class.
 
 ### The React component
 
@@ -83,18 +79,18 @@ export default function GetNameView({ form }) {
 }
 ```
 
-Let’s step through this code one line at a time:
+Let's step through this code one line at a time:
 
-- First, we import the ``<Form>`` component from Django Bridge and `CSRFTokenContext` from our project’s ``contexts`` module (this is provided by the ``create-django-bridge`` project template)
+- First, we import the ``<Form>`` component from Django Bridge and `CSRFTokenContext` from our project's ``contexts`` module (this is provided by the ``create-django-bridge`` project template)
 
 - Next, we define a function view component called ``GetNameView`` that takes a form as a prop
 
 - Then we use the ``CSRFTokenContext`` to get a CSRF token
 
-- Then we use the ``<Form>`` component to build the form. This component extends the HTML ``<form>`` tag to add AJAX form submission and protection from navigating away if the form contains unsaved content <!-- See “dirty form protection” -->
+- Then we use the ``<Form>`` component to build the form. This component extends the HTML ``<form>`` tag to add AJAX form submission and protection from navigating away if the form contains unsaved content <!-- See "dirty form protection" -->
 
 - Then we add a hidden input to hold the CSRF token
 
-- Then we render the form. The Django form is converted into an instance of the ``FormDef`` class which has a ``render()`` method. The project template includes a simple rendering implementation that can be customised <!-- See “Python object in React” for more information on how this mechanism works -->
+- Then we render the form. The Django form is converted into an instance of the ``FormDef`` class which has a ``render()`` method. The project template includes a simple rendering implementation that can be customised <!-- See "Python object in React" for more information on how this mechanism works -->
 
 - Finally we have the submit button that submits the form

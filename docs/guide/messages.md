@@ -1,10 +1,6 @@
----
-sidebar_position: 8
----
-
 # Messages
 
-When building web applications, you will likely need to send users one-time notifications (also known as “flash messages”) after certain events take place (like creating/updating/deleting something).
+When building web applications, you will likely need to send users one-time notifications (also known as "flash messages") after certain events take place (like creating/updating/deleting something).
 
 Django provides [a module](https://docs.djangoproject.com/en/5.0/ref/contrib/messages/) for generating these messages from Python and Django Bridge makes these messages available to React components with a context called ``MessagesContext``.
 
@@ -14,7 +10,7 @@ The ``MessagesContext`` also provides a ``pushMessage`` function that you can us
 
 ## Rendering messages with a React component
 
-Here’s an example component that will render the messages using a React component:
+Here's an example component that will render the messages using a React component:
 
 ```jsx
 import { MessagesContext } from "@django-bridge/react";
@@ -56,7 +52,7 @@ export function Messages() {
 ## Generating messages from React
 
 In addition to messages coming from the Django app, messages can be sent from frontend code using the ``pushMessage()`` function.
-This function takes an object containing a “level” key which can either be “success”, “warning” or “error” and either a “text” key for plain text or a “html” key for HTML.
+This function takes an object containing a "level" key which can either be "success", "warning" or "error" and either a "text" key for plain text or a "html" key for HTML.
 
 For example, here's how you could generate a message when a user clicks a button:
 
@@ -79,3 +75,4 @@ export function MessageButton() {
    </button>
  );
 }
+```

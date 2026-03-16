@@ -1,7 +1,3 @@
----
-sidebar_position: 13
----
-
-# Contributing
+# Storybook
 
 **WORK IN PROGRESS: This is just a stub for now**

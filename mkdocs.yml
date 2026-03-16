@@ -1,0 +1,64 @@
+site_name: Django Bridge
+site_url: https://django-bridge.org
+site_description: The simple way to build Django applications with modern React frontends
+repo_url: https://github.com/django-bridge/django-bridge
+repo_name: django-bridge/django-bridge
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: img/django-bridge-text.svg
+  favicon: img/favicon.ico
+  palette:
+    - scheme: default
+      primary: green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - attr_list
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Introduction: getting-started/introduction.md
+    - Getting Started: getting-started/start.md
+  - Guide:
+    - Writing Views: guide/views.md
+    - Writing View Components: guide/view_components.md
+    - Navigation: guide/navigation.md
+    - Global Context: guide/global_context.md
+    - Forms: guide/forms.md
+    - Messages: guide/messages.md
+    - Overlays: guide/overlays.md
+    - Python objects in React: guide/python2react.md
+    - Testing: guide/testing.md
+    - Storybook: guide/storybook.md
+    - Contributing: guide/contributing.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/django-bridge/django-bridge
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/django-bridge/
+    - icon: fontawesome/brands/npm
+      link: https://www.npmjs.com/package/@django-bridge/react
+
+copyright: Copyright &copy; Karl Hobley and individual contributors

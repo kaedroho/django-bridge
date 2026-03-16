@@ -1,7 +1,3 @@
----
-sidebar_position: 2
----
-
 # Getting started
 
 ## Trying it out
@@ -9,7 +5,7 @@ sidebar_position: 2
 Have a look at our [demo project](https://demo.django-bridge.org) to get an idea of how Django Bridge works.
 
 You can find the source code to this demo on GitHub: [https://github.com/django-bridge/django-react-cms](https://github.com/django-bridge/django-react-cms).
-It’s permissively licensed so you can copy it to get started.
+It's permissively licensed so you can copy it to get started.
 
 ## Starting new Django Bridge application
 
@@ -116,7 +112,7 @@ DJANGO_BRIDGE = {
 In your production settings, set the ``VITE_BUNDLE_DIR`` to the location of the Vite bundle on the filesystem, and add this to ``STATICFILES_DIRS`` as well:
 
 ```python
-DJANGO_BRIDGE[“VITE_BUNDLE_DIR”] = # Location of the vite bundle
+DJANGO_BRIDGE["VITE_BUNDLE_DIR"] = # Location of the vite bundle
 STATICFILES_DIRS = [DJANGO_BRIDGE["VITE_BUNDLE_DIR"]]
 ```
 

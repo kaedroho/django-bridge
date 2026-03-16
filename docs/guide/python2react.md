@@ -1,7 +1,3 @@
----
-sidebar_position: 10
----
-
 # Python objects in React
 
 Django Bridge has built-in support for converting Python objects into JavaScript objects so they can be used by React.
@@ -29,13 +25,13 @@ class TextInputAdapter(Adapter):
 register(TextInputAdapter(), forms.TextInput)
 ```
 
-Let’s step through this code one line at a time:
+Let's step through this code one line at a time:
 
 - First, we import the Django forms framework and the ``Adapter`` class and ``register`` function from Django Bridge
 
 - Next, we define a class called ``TextInputAdapter`` that inherits from ``Adapter``
 
-- Then we set the ``js_constructor`` attribute to “forms.TextInput”. This tells the frontend which constructor to use to create the JavaScript object. The naming convention of this is arbitrary
+- Then we set the ``js_constructor`` attribute to "forms.TextInput". This tells the frontend which constructor to use to create the JavaScript object. The naming convention of this is arbitrary
 
 - We then define a ``js_args`` function. This takes an instance of a ``TextInput`` and returns a list of arguments that will be passed in to the constructor.
 In this example, we want to know the type of ``TextInput`` (since we can reuse this for passwords and emails) and the ``class``.

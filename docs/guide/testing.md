@@ -1,7 +1,3 @@
----
-sidebar_position: 11
----
-
 # Testing
 
 Django bridge provides a ``TestCase`` that includes some helpers for testing Django-bridge enabled views.
@@ -10,7 +6,7 @@ As Django Bridge views are just regular Django views, testing them is
 
 The main difference from a regular Django view test us you need to pass an extra header to make Django Bridge return JSON: ``X-Requested-With: DjangoBridge``. Without this, Django Bridge will replace the response with a HTML bootstrap response.
 
-Here's an example of how you can test the ``current_datetime`` view in the [Writing Views](/docs/views) document:
+Here's an example of how you can test the ``current_datetime`` view in the [Writing Views](views.md) document:
 
 ```python
 from datetime import datetime
@@ -36,7 +32,7 @@ This means testing forms is done almost exactly the same way as in a traditional
 
 The only difference is how the form is represented in the response with JSON rather than HTML.
 
-For example, we can write a test for the ``get_name`` view in the [Forms](/docs/forms) document:
+For example, we can write a test for the ``get_name`` view in the [Forms](forms.md) document:
 
 ```python
 from datetime import datetime

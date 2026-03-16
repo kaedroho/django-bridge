@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # Introduction
 
 ### What is Django Bridge?
@@ -62,4 +58,3 @@ Django Bridge is a good choice when:
 - You are building an application, not a website
 - You want to use React
 - You are building the frontend and backend together
-

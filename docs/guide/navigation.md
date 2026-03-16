@@ -1,7 +1,3 @@
----
-sidebar_position: 5
----
-
 # Navigation
 
 ## The ``<Link>`` component
@@ -54,3 +50,4 @@ export default function LoadingIndicator() {
     </div>
   );
 }
+```
