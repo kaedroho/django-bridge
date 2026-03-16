@@ -37,7 +37,6 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started:
-    - Introduction: getting-started/introduction.md
     - Getting Started: getting-started/start.md
   - Guide:
     - Writing Views: guide/views.md
