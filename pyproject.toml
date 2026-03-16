@@ -21,4 +21,5 @@ build-backend = "poetry.core.masonry.api"
 [dependency-groups]
 dev = [
     "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.5",
 ]
