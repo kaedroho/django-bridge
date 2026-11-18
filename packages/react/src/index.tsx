@@ -131,7 +131,10 @@ export function App({ config, initialResponse }: AppProps): ReactElement {
     // This event is fired when the user hits the back/forward links in their browser
     const navigate = () => {
       // eslint-disable-next-line no-void
-      void navigationController.navigate(document.location.pathname + document.location.search, false);
+      void navigationController.navigate(
+        document.location.pathname + document.location.search,
+        false
+      );
     };
 
     window.addEventListener("popstate", navigate);
