@@ -219,7 +219,6 @@ export function useNavigationController(
   );
 
   const nextFetchId = useRef(1);
-  const lastReceivedFetchId = useRef(1);
   const isFetchInProgress = useRef(false);
 
   const fetch = useCallback(
@@ -229,22 +228,18 @@ export function useNavigationController(
       pushState: boolean,
       neverReload = false
     ) => {
-      // Get a fetch ID
-      // We do this so that if responses come back in a different order to
-      // when the requests were sent, the older requests don't replace newer ones
+      // Get a fetch ID so that if a newer navigation starts before this
+      // response arrives, we discard this (now stale) response.
       nextFetchId.current += 1;
       const thisFetchId = nextFetchId.current;
       isFetchInProgress.current = true;
 
       const response = await fetcher();
 
-      if (thisFetchId < lastReceivedFetchId.current) {
-        // A subsequent fetch was made but its response came in before this one
-        // So ignore this response
+      if (thisFetchId < nextFetchId.current) {
+        // A newer fetch was started while this one was in-flight — discard.
         return;
       }
-
-      lastReceivedFetchId.current = thisFetchId;
 
       if (response === null) {
         return;
